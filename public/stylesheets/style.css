@@ -1,0 +1,216 @@
+@import url("reset.css");
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-weight: 300;
+  font-stretch: normal;
+  font-size: 13px;
+  text-align: center;
+  text-stroke: 1px rgba(255,255,255,0.1);
+  color: #555;
+}
+a {
+  color: #09c;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+form .field {
+  padding: 0 0 10px;
+}
+form label {
+  display: block;
+  font-size: 18px;
+  padding: 0 0 5px;
+}
+form textarea,
+form input.text {
+  display: block;
+  width: 610px;
+  background: #fff;
+  border: 1px solid #aaa;
+  font-size: 16px;
+  padding: 5px;
+}
+form input.checkbox {
+  margin: 0;
+}
+form input.submit {
+  font-size: 18px;
+}
+#wrap {
+  min-height: 100%;
+}
+.structure {
+  width: 620px;
+  margin: 0 auto;
+}
+#header {
+  position: relative;
+  background: #121212;
+/* Old browsers */
+  background: -moz-linear-gradient(top, #121212 0%, #333 98%);
+/* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #121212), color-stop(98%, #333));
+/* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #121212 0%, #333 98%);
+/* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #121212 0%, #333 98%);
+/* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #121212 0%, #333 98%);
+/* IE10+ */
+  background: linear-gradient(top, #121212 0%, #333 98%);
+/* W3C */
+  padding: 40px;
+}
+#header h1,
+#header h2 {
+  color: #fff;
+}
+#header h1 {
+  line-height: 1.1em;
+  font-size: 32px;
+  color: #fff;
+}
+#header h2 {
+  margin: 20px 0 0;
+  font-size: 20px;
+  color: #ddd;
+}
+#header a#logo {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: 126px;
+  height: 93px;
+  background: transparent url("../images/logo.png") no-repeat 50% 50%;
+  text-indent: -9999em;
+  overflow: hidden;
+}
+#main {
+  overflow: auto;
+  margin: 1px 0 0;
+  border-top: 1px solid #333;
+  min-height: 400px;
+  background: #fff url("../images/main_bg.jpg") repeat-x 50% 0;
+  padding-bottom: 82px;
+}
+#main .structure {
+  padding: 30px 0;
+  text-align: left;
+}
+#main .structure h2 {
+  font-size: 24px;
+  margin: 0 0 20px;
+}
+#main .structure .sub h2 {
+  font-size: 14px;
+}
+#main .structure ul li {
+  padding: 8px 0 0 44px;
+  min-height: 44px;
+  line-height: 1.3em;
+  font-size: 24px;
+  background: url("../images/list_button.png") no-repeat 0 4px;
+}
+#main .structure .sub ul li {
+  padding: 4px 0 0 22px;
+  min-height: 22px;
+  line-height: 1.3em;
+  font-size: 14px;
+  background: url("../images/list_button_small.png") no-repeat 0 2px;
+}
+#main .structure #create a {
+  display: inline-block;
+  padding: 0 0 0 44px;
+  margin: 10px 0 20px;
+  font-size: 24px;
+  background: url("../images/create_button.png") no-repeat 0 50%;
+}
+#main .structure #create a small {
+  display: block;
+  font-size: 0.6em;
+}
+#created {
+  background: #fff url("../images/created_tick.png") no-repeat 99% 90%;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 20px;
+}
+#created h4 {
+  font-size: 20px;
+  margin: 0 0 20px;
+}
+#created h5 {
+  font-size: 16px;
+}
+#created h5 a {
+  display: block;
+}
+.feel {
+  float: right;
+  margin: 10px 0 0;
+}
+#posted {
+  clear: both;
+  margin: 20px 0 0;
+  border-top: 1px dotted #ccc;
+  padding: 20px 0 0;
+}
+#posted .column {
+  float: left;
+}
+#posted .column.main {
+  width: 70%;
+}
+#posted .column.sub {
+  width: 30%;
+}
+#footer {
+  overflow: hidden;
+  position: relative;
+  margin-top: -42px;
+/* negative value of footer height */
+  padding: 1px 0 0;
+  border-top: 1px solid #333;
+  clear: both;
+}
+#footer .inner {
+  background: #333;
+/* Old browsers */
+  background: -moz-linear-gradient(top, #333 0%, #121212 100%);
+/* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333), color-stop(100%, #121212));
+/* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #333 0%, #121212 100%);
+/* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #333 0%, #121212 100%);
+/* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #333 0%, #121212 100%);
+/* IE10+ */
+  background: linear-gradient(top, #333 0%, #121212 100%);
+/* W3C */
+  height: 40px;
+}
+#footer p {
+  margin: 0;
+  line-height: 40px;
+  font-size: 14px;
+  color: #fff;
+}
+.angels {
+  color: #09c;
+}
+.angels a {
+  color: #09c !important;
+}
+.demons {
+  color: #ac292b;
+}
+.demons a {
+  color: #ac292b !important;
+}

@@ -1,0 +1,27 @@
+#wrap
+  #header
+    .structure
+      //a(href="/") The Singing Bank! @OpenBankProject
+      h1 The Singing Bank! @OpenBankProject
+
+  #main
+    .structure
+
+      #create 
+        The Singing bank!
+      h1 Info:
+      ul
+        - each trans in transactions
+          li
+
+            #{trans.obp_transaction.details.value.amount}
+            if (trans.obp_transaction.details.value.amount > 0)
+              script(type='text/javascript') 
+                loadMoney();
+            else
+              script(type='text/javascript')
+                loadPain();
+              //loadMoney();
+              //var startTime = new Date().getTime(); 
+              //while (new Date().getTime() < startTime + 5); 
+

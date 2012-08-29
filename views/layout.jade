@@ -1,0 +1,50 @@
+!!! 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+    //link(rel='javascript', href='/javascripts/dog.js')
+
+    script(src='/javascripts/dog.js')
+
+    script(type='text/javascript')
+      var context;
+      window.addEventListener('load', init, false);
+      function init() {
+        try {
+          context = new webkitAudioContext();
+          //alert('Web Audio API OK!');
+        }
+        catch(e) {
+          alert('Web Audio API is not supported in this browser');
+        }
+      }
+      //loadMoney();
+
+
+
+
+
+
+
+
+
+  body!= body
+
+  #footer
+    .inner
+      p &copy;2012&nbsp;
+        a(href="http://tesobe.com") TESOBE
+        |&nbsp;|&nbsp;
+        a(href="/about") about
+        if (process.env.NODE_ENV != 'production')
+          |&nbsp;|&nbsp;
+          if (session.passport.user)
+            | Hello #{session.passport.user.displayName}
+            |&nbsp;|&nbsp;
+            a(href="/logout") log out
+          else
+            a(href="/auth/twitter") log in with twitter
+            |&nbsp;|&nbsp;
+            a(href="/auth/facebook") log in with facebook

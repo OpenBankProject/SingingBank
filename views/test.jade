@@ -1,0 +1,10 @@
+#header
+  .structure
+    a#logo(href="/") Polarize.it
+    h1= title
+#main
+  .structure
+    #created
+      h4 Test: #{topic.body}
+      h5 Share the following URL to get some opinions: http://polarize.it/polarize/#{topic.permalink}
+        a(href='/polarize/#{topic.permalink}') try it
