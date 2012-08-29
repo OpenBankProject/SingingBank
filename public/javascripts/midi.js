@@ -12,6 +12,72 @@ var painFinishedLoading = false;
 var soundQueue = []
 var queuePosition = 0
 
+var midiAccess,
+output,
+outputs = null,
+msgSelectOutput = "<br/><br/><div>Please select a MIDI output...</div>",
+selectOutput = document.getElementById("outputs"),
+debugDiv = document.getElementById("debug-messages"),
+messageDiv = document.getElementById("help-message");
+
+window.addEventListener('load', function() {
+    if(midiBridge.userAgent === "msie8/win"){
+        //midiBridge.wrapElement(document);
+        document.body.innerHTML = "This app does not support Internet Explorer 8";
+        return;
+    }
+
+    /*
+    midiBridge.init(function(MIDIAccess){
+        
+        midiAccess = MIDIAccess;
+        outputs = midiAccess.enumerateOutputs();
+        debugDiv.innerHTML = outputs
+
+        //create dropdown menu for MIDI outputs and add an event listener to the change event
+        midiBridge.createMIDIDeviceSelector(selectOutput, outputs, "output", function(deviceId){
+            
+            if(output){
+                output.close();
+            }
+            output = midiAccess.getOutput(outputs[deviceId]);
+            
+            if(deviceId == -1){
+                messageDiv.innerHTML = msgSelectOutput;
+            }
+        });
+    });*/
+
+    midiBridge.init({ 
+        
+        connectAllInputsToFirstOutput: false,
+        
+        ready: function(msg){
+            //contentDiv.innerHTML += msg + "<br/>";
+
+            var devices = midiBridge.getDevices();
+            for(var i = 0, max = devices.length; i < max; i++) {
+            
+                var device  = devices[i];
+                var id      = device.id;
+                var type    = device.type;
+                var name    = device.name;
+                var descr   = device.descr;
+                var available = device.available;
+                debugDiv.innerHTML += id + " : " + type+ " : " + name+ " : " + descr+ " : " + available + "<br/>";
+            }
+            
+        },
+        error: function(msg) {
+            debugDiv.innerHTML += msg + "<br/>";
+        },
+        data: function(midiEvent) {
+            debugDiv.innerHTML += midiEvent + "<br/>";
+        }        
+    });
+
+}, false);
+
 function loadMoney() {
   var request = new XMLHttpRequest();
   request.open('GET','/sounds/cash-register-01.wav', true);
@@ -79,9 +145,9 @@ function tryPlayNextSoundInQueue(){
 
             for (var j=0; j<s.length; j++){
                 if (s[j].type == 'money')
-                    playMoney()
+                    playMoney(s[j].length)
                 else if (s[j].type == 'pain')
-                    playPain()
+                    playPain(s[j].length)
             }
             queuePosition++
             //stop sounds after: s[0].length*20 ?
@@ -96,29 +162,29 @@ function tryPlayNextSoundInQueue(){
 
 loadMoney()
 loadPain()
+var source1 = null, source2 = null
 
-function playMoney(){
+function playMoney(length){
     //while (!moneyBuffer) {
     //}
 
-    var source = context.createBufferSource(); // creates a sound source
-    source.buffer = moneyBuffer;               // tell the source which sound to play
-    source.connect(context.destination);       // connect the source to the context's destination (the speakers)
-    source.noteOn(0);                          // play the source now
-    //alert('after nodeOn');  
+    source1 = context.createBufferSource(); // creates a sound source
+    source1.buffer = moneyBuffer;               // tell the source which sound to play
+    source1.connect(context.destination);       // connect the source to the context's destination (the speakers)
+    source1.noteOn(0);                          // play the source now
+    setTimeout("source1.noteOff(0)", length)
 }
 
 
-function playPain(){
+function playPain(length){
     //while (!painBuffer) {
     //}
 
-    var source = context.createBufferSource(); // creates a sound source
-    source.buffer = painBuffer;                    // tell the source which sound to play
-    source.connect(context.destination);       // connect the source to the context's destination (the speakers)
-    source.noteOn(0);                          // play the source now
-    //alert('after nodeOn');
-    //setTimeout(500, source.noteOff();)  
+    source2 = context.createBufferSource(); // creates a sound source
+    source2.buffer = painBuffer;                // tell the source which sound to play
+    source2.connect(context.destination);       // connect the source to the context's destination (the speakers)
+    source2.noteOn(0);                          // play the source now
+    setTimeout("source2.noteOff(0)", length)
 }
 
 

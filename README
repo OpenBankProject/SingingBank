@@ -1,2 +1,68 @@
-The following tutorial was used as a starting point
-http://howtonode.org/express-mongodb
+// Singing Bank //
+
+Libraries:
+
+osc-web can be used to send and receive osc with node.js
+
+https://github.com/automata/osc-web
+
+(so we can send notes from ableton etc. to webapp which could twitter or whatever)
+
+---
+
+Web Audio API can directly play sound data and actually directly synth sounds as well
+
+Also, there is audiolib.js to make that easier https://github.com/jussi-kalliokoski/audiolib.js/#readme
+(seems to have some problems in chrome, maybe needs newer version. firefox ok)
+
+---
+
+Lily is like puredata in firefox and can receive OSC
+
+http://www.lilyapp.org
+
+---
+
+Midibridge is a java applet that allows midi access through javascript
+It seems to implement a maybe-future brwoser midi api (proposed to w3c already)
+
+http://abumarkub.net/abublog/?p=840
+
+---
+
+Jazzplugin is a plugin based approach
+
+---
+
+MIDI.js uses soundfonts and plays sound in the browser
+
+http://mudcu.be/midi-js/
+
+---
+Node:
+
+http://toolbox.no.de/packages/midi.io (only receive)
+https://github.com/justinlatimer/node-midi (wrapper for RtMidi)
+https://github.com/hanshuebner/midivent (wrapper for PortMidi)
+
+(midi then only works only on the machine node is running on)
+
+-------------------
+
+OpenBank API Data, Numbers from [-∞, +∞] (json)
+            |
+            v
+      Webapp (Node)
+|           |                |
+v           v                v
+Midi     Soundfiles   Synth (WebAudio API)
+
+-----
+
+Sound modules:
+
+dog.js - Plays two different sound samples via webkitAudioContext
+midi.js - tried to use midbridge (java plugin)
+midi2.js - should try to use midi.js (soundfonts played in the browser)
+
+
