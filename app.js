@@ -5,7 +5,7 @@
 var settings = require('./settings');
 
 var express = require('express');
-RedisStore = require('connect-redis')(express)
+//RedisStore = require('connect-redis')(express)
 
 
 var connect = require('connect');
@@ -34,7 +34,7 @@ app.configure(function(){
 
 
   app.use(express.session({secret: "yap8u7yhgytyab"
-                          , store: new RedisStore
+                          //, store: new RedisStore
                           , cookie: { domain:'.' + settings.server.public_domain}
                           })); // should be before passport session
   app.use(passport.initialize());

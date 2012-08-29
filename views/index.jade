@@ -13,15 +13,7 @@
       ul
         - each trans in transactions
           li
-
             #{trans.obp_transaction.details.value.amount}
-            if (trans.obp_transaction.details.value.amount > 0)
-              script(type='text/javascript') 
-                loadMoney();
-            else
-              script(type='text/javascript')
-                loadPain();
-              //loadMoney();
-              //var startTime = new Date().getTime(); 
-              //while (new Date().getTime() < startTime + 5); 
+            script(type='text/javascript') 
+              playData(#{trans.obp_transaction.details.value.amount}, "#{trans.obp_transaction.details.completed}");
 
