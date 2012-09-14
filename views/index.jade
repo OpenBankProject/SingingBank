@@ -13,7 +13,7 @@
       ul
         - each trans in transactions
           li
-            #{trans.obp_transaction.details.value.amount}
+            !{trans.obp_transaction.details.value.amount}
             script(type='text/javascript') 
               playData(#{trans.obp_transaction.details.value.amount}, "#{trans.obp_transaction.details.completed}");
 
