@@ -5,5 +5,7 @@
     , "dependencies": {
         "express": "2.5.x"
         , "jade": ">= 0.0.1"
+        , "request": ">= 0.0.1" 
+        , "stylus": ">= 0.0.1"
     }
 }

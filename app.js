@@ -7,7 +7,7 @@ var express = require('express');
 //RedisStore = require('connect-redis')(express)
 //var connect = require('connect');
 var util = require('util');
-var async = require('async');
+//var async = require('async');
 var app = module.exports = express.createServer();
 
 //var passport = require('passport');
