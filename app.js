@@ -3,42 +3,31 @@
  */
 
 var settings = require('./settings');
-
 var express = require('express');
 //RedisStore = require('connect-redis')(express)
-
-
-var connect = require('connect');
+//var connect = require('connect');
 var util = require('util');
-
 var async = require('async');
-
 var app = module.exports = express.createServer();
 
-
-
-var passport = require('passport');
-var TwitterStrategy = require('passport-twitter').Strategy;
-
-var FacebookStrategy = require('passport-facebook').Strategy;
+//var passport = require('passport');
+//var TwitterStrategy = require('passport-twitter').Strategy;
+//var FacebookStrategy = require('passport-facebook').Strategy;
 
 
 // Configuration
-
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.cookieParser());
 
-
-
   app.use(express.session({secret: "yap8u7yhgytyab"
                           //, store: new RedisStore
                           , cookie: { domain:'.' + settings.server.public_domain}
                           })); // should be before passport session
-  app.use(passport.initialize());
-  app.use(passport.session());
+//  app.use(passport.initialize());
+//  app.use(passport.session());
   app.use(express.methodOverride());
   app.use(require('stylus').middleware({ src: __dirname + '/public' }));
   app.use(app.router);
@@ -47,14 +36,13 @@ app.configure(function(){
 
 app.configure('simon', function(){
   app.use(express.errorHandler({showStack: true, dumpExceptions: true}));
-  // localhost facebook app
-  app.set('APP_FACEBOOK_CLIENT_ID', '317322411676639');
-  app.set('APP_FACEBOOK_APP_SECRET', '88965e9e1c6b287bfe56a1db4e2a4cca');
+//  localhost facebook app
+//  app.set('APP_FACEBOOK_CLIENT_ID', '317322411676639');
+//  app.set('APP_FACEBOOK_APP_SECRET', '88965e9e1c6b287bfe56a1db4e2a4cca');
 
   app.set('APP_ENV', 'simon');
 
   // Note: Also see settings.js
-
 });
 
 
@@ -62,10 +50,10 @@ app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 
   // Dev Polarize it
-  app.set('APP_FACEBOOK_CLIENT_ID', '361088667286146');
-  app.set('APP_FACEBOOK_APP_SECRET', 'f8b38dfb2177c7e5949a5656540c5a6a');
+  //app.set('APP_FACEBOOK_CLIENT_ID', '361088667286146');
+  //app.set('APP_FACEBOOK_APP_SECRET', 'f8b38dfb2177c7e5949a5656540c5a6a');
 
-   app.set('APP_ENV', 'development');
+  app.set('APP_ENV', 'development');
 
  // Note: Also see settings.js
 
@@ -75,8 +63,8 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 
   // Live Polarize it
-  app.set('APP_FACEBOOK_CLIENT_ID', '106649586139795');
-  app.set('APP_FACEBOOK_APP_SECRET', '0f21975188753da6131295105e901fb1');
+  /*app.set('APP_FACEBOOK_CLIENT_ID', '106649586139795');
+  app.set('APP_FACEBOOK_APP_SECRET', '0f21975188753da6131295105e901fb1');*/
 
   app.set('APP_ENV', 'production');
 
@@ -85,7 +73,7 @@ app.configure('production', function(){
 });
 
 
-
+/*
 passport.serializeUser(function(user, done) {
   console.log('this is serializeUser hello');
   var core_user = {
@@ -134,14 +122,12 @@ passport.use(new FacebookStrategy({
     });
   }
 ));
-
+*/
 
 app.get('/logout', function(req, res){
   req.logOut();
   res.redirect('/');
 });
-
-
 
 
 app.dynamicHelpers({
@@ -257,15 +243,14 @@ app.get('/test/session', function(req, res){
 // Redirect the user to Twitter for authentication.  When complete, Twitter
 // will redirect the user back to the application at
 // /auth/twitter/callback
-app.get('/auth/twitter', passport.authenticate('twitter'));
-
-app.get('/auth/facebook', passport.authenticate('facebook'));
+/*app.get('/auth/twitter', passport.authenticate('twitter'));
+app.get('/auth/facebook', passport.authenticate('facebook'));*/
 
 // Twitter will redirect the user to this URL after approval.  Finish the
 // authentication process by attempting to obtain an access token.  If
 // access was granted, the user will be logged in.  Otherwise,
 // authentication has failed.
-app.get('/auth/twitter/callback', 
+/*app.get('/auth/twitter/callback', 
     passport.authenticate('twitter', { successRedirect: '/',
                                      failureRedirect: '/error' }));
 
@@ -273,7 +258,7 @@ app.get('/auth/facebook/callback',
     passport.authenticate('facebook', { successRedirect: '/',
                                      failureRedirect: '/error' }));
 
-
+*/
 
 app.listen(settings.server.port, '127.0.0.1', function() {
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

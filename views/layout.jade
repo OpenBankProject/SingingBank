@@ -3,8 +3,7 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    //script(src='/javascripts/midibridge-0.5.4.min.js')
-    script(src='/javascripts/midi2.js')
+    script(src='/javascripts/midi.js')
 
     script(type='text/javascript')
       var context;
@@ -29,6 +28,7 @@ html
         a(href="/about") about
         if (process.env.NODE_ENV != 'production')
           |&nbsp;|&nbsp;
+        //-
           if (session.passport.user)
             | Hello #{session.passport.user.displayName}
             |&nbsp;|&nbsp;

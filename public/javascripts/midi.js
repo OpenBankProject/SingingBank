@@ -12,78 +12,12 @@ var painFinishedLoading = false;
 var soundQueue = []
 var queuePosition = 0
 
-var midiAccess,
-output,
-outputs = null,
-msgSelectOutput = "<br/><br/><div>Please select a MIDI output...</div>",
-selectOutput = document.getElementById("outputs"),
-debugDiv = document.getElementById("debug-messages"),
-messageDiv = document.getElementById("help-message");
-
-window.addEventListener('load', function() {
-    if(midiBridge.userAgent === "msie8/win"){
-        //midiBridge.wrapElement(document);
-        document.body.innerHTML = "This app does not support Internet Explorer 8";
-        return;
-    }
-
-    /*
-    midiBridge.init(function(MIDIAccess){
-        
-        midiAccess = MIDIAccess;
-        outputs = midiAccess.enumerateOutputs();
-        debugDiv.innerHTML = outputs
-
-        //create dropdown menu for MIDI outputs and add an event listener to the change event
-        midiBridge.createMIDIDeviceSelector(selectOutput, outputs, "output", function(deviceId){
-            
-            if(output){
-                output.close();
-            }
-            output = midiAccess.getOutput(outputs[deviceId]);
-            
-            if(deviceId == -1){
-                messageDiv.innerHTML = msgSelectOutput;
-            }
-        });
-    });*/
-
-    midiBridge.init({ 
-        
-        connectAllInputsToFirstOutput: false,
-        
-        ready: function(msg){
-            //contentDiv.innerHTML += msg + "<br/>";
-
-            var devices = midiBridge.getDevices();
-            for(var i = 0, max = devices.length; i < max; i++) {
-            
-                var device  = devices[i];
-                var id      = device.id;
-                var type    = device.type;
-                var name    = device.name;
-                var descr   = device.descr;
-                var available = device.available;
-                debugDiv.innerHTML += id + " : " + type+ " : " + name+ " : " + descr+ " : " + available + "<br/>";
-            }
-            
-        },
-        error: function(msg) {
-            debugDiv.innerHTML += msg + "<br/>";
-        },
-        data: function(midiEvent) {
-            debugDiv.innerHTML += midiEvent + "<br/>";
-        }        
-    });
-
-}, false);
-
 function loadMoney() {
   var request = new XMLHttpRequest();
-  request.open('GET','/sounds/cash-register-01.wav', true);
-  //request.open('GET','DaDeMo_Grand_Piano_Fazioli_Major_Chords_Middle_Pitch.mp3', true);
-  // request.open('GET','148488__neatonk__piano-loud-a4.wav', true);
-  //request.open('GET','24929__acclivity__phoneringing.mp3', true);
+  //request.open('GET','/sounds/cash-register-01.wav', true);
+  request.open('GET','/sounds/DaDeMo_Grand_Piano_Fazioli_Major_Chords_Middle_Pitch.mp3', true);
+  //request.open('GET','/sounds/148488__neatonk__piano-loud-a4.wav', true);
+  //request.open('GET','/sounds/24929__acclivity__phoneringing.mp3', true);
 
   request.responseType = 'arraybuffer';
 
@@ -110,10 +44,10 @@ function loadMoney() {
 
 function loadPain() {
   var request = new XMLHttpRequest();
-  request.open('GET','/sounds/2319.mp3', true); // OK loud!
+  //request.open('GET','/sounds/2319.mp3', true); // OK loud!
 
   //request.open('GET','/sounds/cash-register-01.wav', true);
-  //request.open('GET','DaDeMo_Grand_Piano_Fazioli_Minor_Chords_Higher_Pitch.mp3', true); 
+  request.open('GET','/sounds/DaDeMo_Grand_Piano_Fazioli_Minor_Chords_Higher_Pitch.mp3', true); 
   //
   request.responseType = 'arraybuffer';
 
