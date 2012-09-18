@@ -1,5 +1,5 @@
 /*
-*   dog.js - Play different sounds for negative or positive numbers
+*   midi.js - Play different sounds for negative or positive numbers
     (provides playData method to outside)
 */
 
@@ -106,6 +106,7 @@ function playMoney(length){
     source1.buffer = moneyBuffer;               // tell the source which sound to play
     source1.connect(context.destination);       // connect the source to the context's destination (the speakers)
     source1.noteOn(0);                          // play the source now
+    console.log ("length is " + length)
     setTimeout("source1.noteOff(0)", length)
 }
 

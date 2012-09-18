@@ -83,27 +83,27 @@ function dir(object)
 
 app.get('/', function(req, res){
 
-    console.log('public_address is ' + settings.server.public_address);
+    //console.log('public_address is ' + settings.server.public_address);
 
     var mock = req.param('mock', false);
 
     if (mock){
-      console.log('before sending request localy')
+      console.log('Using mock API')
       var uri = 'http://localhost:3000/mock/obp';
     } else {
-      console.log('before sending request to obp:')
+      console.log('Using OBP demo tesobe')
       var uri = 'https://demo.openbankproject.com/api/accounts/tesobe/anonymous';
     }
 
     var request = require('request');
     request({uri: uri, body: 'json'}, function (error, response, body) {
       //if (!error && response.statusCode == 200) {
-        console.log('here is the error:')
-        console.log(error) 
-        console.log('here is the response:')
-        console.log(response) 
-        console.log('here is the body:')
-        console.log(body)
+        // console.log('here is the error:')
+        // console.log(error) 
+        // console.log('here is the response:')
+        // console.log(response) 
+        // console.log('here is the body:')
+        // console.log(body)
 
         console.log('here is the body.obp_transaction:')
         console.log(body['obp_transaction'])
@@ -138,7 +138,13 @@ app.get('/mock/obp', function(req, res){
    
 });
 
-
+app.get('/about', function(req, res) {
+    res.render('about.jade', { locals: {
+        title: "About"
+        , app_env: app.set('APP_ENV')
+    }
+    });
+});
 
 app.listen(settings.server.port, '127.0.0.1', function() {
 //console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
