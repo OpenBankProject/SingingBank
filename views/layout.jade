@@ -22,18 +22,11 @@ html
 
   #footer
     .inner
-      p &copy;2012&nbsp;
+      p
         a(href="http://tesobe.com") TESOBE
         |&nbsp;|&nbsp;
-        a(href="/about") about
-        if (process.env.NODE_ENV != 'production')
-          |&nbsp;|&nbsp;
-        //-
-          if (session.passport.user)
-            | Hello #{session.passport.user.displayName}
-            |&nbsp;|&nbsp;
-            a(href="/logout") log out
-          else
-            a(href="/auth/twitter") log in with twitter
-            |&nbsp;|&nbsp;
-            a(href="/auth/facebook") log in with facebook
+        a(href="http://www.openbankproject.com") Open Bank Project
+        |&nbsp;|&nbsp;
+        a(href="http://demo.openbankproject.com") Demo
+        |&nbsp;|&nbsp;
+        a(href="http://polarize.it/polarize/thesingingbank_98031475185") Feedback

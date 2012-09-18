@@ -4,15 +4,10 @@
 
 var settings = require('./settings');
 var express = require('express');
-//RedisStore = require('connect-redis')(express)
-//var connect = require('connect');
-var util = require('util');
-//var async = require('async');
-var app = module.exports = express.createServer();
 
-//var passport = require('passport');
-//var TwitterStrategy = require('passport-twitter').Strategy;
-//var FacebookStrategy = require('passport-facebook').Strategy;
+var util = require('util');
+
+var app = module.exports = express.createServer();
 
 
 // Configuration
@@ -23,11 +18,9 @@ app.configure(function(){
   app.use(express.cookieParser());
 
   app.use(express.session({secret: "yap8u7yhgytyab"
-                          //, store: new RedisStore
                           , cookie: { domain:'.' + settings.server.public_domain}
                           })); // should be before passport session
-//  app.use(passport.initialize());
-//  app.use(passport.session());
+
   app.use(express.methodOverride());
   app.use(require('stylus').middleware({ src: __dirname + '/public' }));
   app.use(app.router);
@@ -36,9 +29,6 @@ app.configure(function(){
 
 app.configure('simon', function(){
   app.use(express.errorHandler({showStack: true, dumpExceptions: true}));
-//  localhost facebook app
-//  app.set('APP_FACEBOOK_CLIENT_ID', '317322411676639');
-//  app.set('APP_FACEBOOK_APP_SECRET', '88965e9e1c6b287bfe56a1db4e2a4cca');
 
   app.set('APP_ENV', 'simon');
 
@@ -49,10 +39,6 @@ app.configure('simon', function(){
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 
-  // Dev Polarize it
-  //app.set('APP_FACEBOOK_CLIENT_ID', '361088667286146');
-  //app.set('APP_FACEBOOK_APP_SECRET', 'f8b38dfb2177c7e5949a5656540c5a6a');
-
   app.set('APP_ENV', 'development');
 
  // Note: Also see settings.js
@@ -62,9 +48,6 @@ app.configure('development', function(){
 app.configure('production', function(){
   app.use(express.errorHandler());
 
-  // Live Polarize it
-  /*app.set('APP_FACEBOOK_CLIENT_ID', '106649586139795');
-  app.set('APP_FACEBOOK_APP_SECRET', '0f21975188753da6131295105e901fb1');*/
 
   app.set('APP_ENV', 'production');
 
@@ -73,69 +56,12 @@ app.configure('production', function(){
 });
 
 
-/*
-passport.serializeUser(function(user, done) {
-  console.log('this is serializeUser hello');
-  var core_user = {
-        provider: user.provider
-        , id: user.id
-        , username: user.username
-        , displayName: user.displayName
-        , _id: user._id
-        , user_code: user.provider + '-' + user.id
-      }
-  done(null, core_user);
-});
-
-passport.deserializeUser(function(core_user, done) {
-  console.log('this is deserializeUser hello');
-  user_provider.findById(core_user._id, function (err, user) {
-    done(err, user);
-  });
-});
-
-passport.use(
-    new TwitterStrategy({
-    consumerKey: settings.twitter.consumer_key,
-    consumerSecret: settings.twitter.consumer_secret,
-    callbackURL: "http://" + settings.server.public_address + "/auth/twitter/callback"
-  },
-  function(token, tokenSecret, profile, done) {
-    user_provider.findOrCreate(profile, function (error, user) {
-      console.log('after findOrCreate ');
-      if (error) { return done(error); }
-      done(null, user);
-    });
-  }
-));
-
-// TODO probably have to create a facebook app just for using when testing on localhost?
-passport.use(new FacebookStrategy({
-    clientID: app.set('APP_FACEBOOK_CLIENT_ID'),
-    clientSecret: app.set('APP_FACEBOOK_APP_SECRET'),
-    callbackURL: "http://" + settings.server.public_address + "/auth/facebook/callback"
-  },
-  function(token, tokenSecret, profile, done) {
-    user_provider.findOrCreate(profile, function (error, user) {
-      if (error) { return done(error); }
-      done(null, user);
-    });
-  }
-));
-*/
 
 app.get('/logout', function(req, res){
   req.logOut();
   res.redirect('/');
 });
 
-
-/*app.dynamicHelpers({
-  session: function(req, res){
-    return req.session;
-  }
-});
-*/
 
 // Helpers
 
@@ -157,37 +83,27 @@ function dir(object)
 
 app.get('/', function(req, res){
 
-    console.log('public_address is ' + settings.server.public_address);
+    //console.log('public_address is ' + settings.server.public_address);
 
-    req.session.visitCount = req.session.visitCount ? req.session.visitCount + 1 : 1;
+    var mock = req.param('mock', false);
 
-    if (req.user){
-      console.log('req.user.displayName is ' + req.user.displayName);
+    if (mock){
+      console.log('Using mock API')
+      var uri = 'http://localhost:3000/mock/obp';
     } else {
-      console.log('no user. you might want to login?')
+      console.log('Using OBP demo tesobe')
+      var uri = 'https://demo.openbankproject.com/api/accounts/tesobe/anonymous';
     }
-
-    if (req.session){
-      console.log('session is ' + util.inspect(req.session));
-    } else {
-      console.log('no session')
-    }
-
-
-    console.log('before sending request to obp:')
 
     var request = require('request');
-
-    var uri = 'https://demo.openbankproject.com/api/accounts/tesobe/anonymous';
-
     request({uri: uri, body: 'json'}, function (error, response, body) {
       //if (!error && response.statusCode == 200) {
-        console.log('here is the error:')
-        console.log(error) 
-        console.log('here is the response:')
-        console.log(response) 
-        console.log('here is the body:')
-        console.log(body)
+        // console.log('here is the error:')
+        // console.log(error) 
+        // console.log('here is the response:')
+        // console.log(response) 
+        // console.log('here is the body:')
+        // console.log(body)
 
         console.log('here is the body.obp_transaction:')
         console.log(body['obp_transaction'])
@@ -200,7 +116,6 @@ app.get('/', function(req, res){
             locals: {
                 title: 'The Singing Bank!',
                 transactions: transactions,
-                //user: req.user
             }
         })
 
@@ -211,55 +126,25 @@ app.get('/', function(req, res){
 });
 
 
-app.get('/test/session', function(req, res){
+app.get('/mock/obp', function(req, res){
 
     console.log('public_address is ' + settings.server.public_address);
 
-    req.session.test_session_visit_count = req.session.test_session_visit_count ? req.session.test_session_visit_count + 1 : 1;
+    mock_data = [{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeead","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"DEUTSCHE POST AG, SSC ACC S","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Lastschrift","posted":"2012-03-07T00:00:00.001Z","completed":"2012-03-07T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"-1.45"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeae","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"HETZNER ONLINE AG","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Lastschrift","posted":"2012-03-06T00:00:00.001Z","completed":"2012-03-06T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"-207.99"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeaf","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"Christiania e.V.","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Überweisung Spende","posted":"2012-03-05T00:00:00.001Z","completed":"2012-03-05T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"3000.00"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeb0","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"HOST EUROPE GMBH","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Lastschrift","posted":"2012-03-05T00:00:00.001Z","completed":"2012-03-05T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"-12.99"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeb1","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"TECHNIKER KRANKENKASSE","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Lastschrift","posted":"2012-03-05T00:00:00.001Z","completed":"2012-03-05T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"-879.87"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeb2","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"Software Dev D","alias":"public"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Überweisung","posted":"2012-03-01T00:00:00.001Z","completed":"2012-03-01T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"-2273.35"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeb3","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"Software Developer X2","alias":"public"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Überweisung","posted":"2012-03-01T00:00:00.001Z","completed":"2012-03-01T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"1260.31"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeb4","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"Developer O","alias":"public"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Überweisung","posted":"2012-03-01T00:00:00.001Z","completed":"2012-03-01T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"-1730.39"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeb5","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"Software Dev X","alias":"public"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Überweisung","posted":"2012-03-01T00:00:00.001Z","completed":"2012-03-01T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"-1414.89"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeb6","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"Music Pictures Staff 1","alias":"public"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Überweisung","posted":"2012-03-01T00:00:00.001Z","completed":"2012-03-01T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"-185.69"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeb7","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"Marketing Consultant 1","alias":"public"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Überweisung","posted":"2012-03-01T00:00:00.001Z","completed":"2012-03-01T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"-423.12"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeb8","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"Accounts Genius","alias":"public"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Überweisung","posted":"2012-03-01T00:00:00.001Z","completed":"2012-03-01T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"1087.27"}}},"obp_comments":[]},{"obp_transaction":{"obp_transaction_uuid":"4f5745f4e4b095974c0eeeb9","this_account":{"holder":{"holder":"MUSIC PICTURES LIMITED","alias":"no"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"other_account":{"holder":{"holder":"Developer C","alias":"public"},"number":"","kind":"","bank":{"IBAN":"","national_identifier":"","name":""}},"details":{"type_en":"","type_de":"Überweisung","posted":"2012-03-01T00:00:00.001Z","completed":"2012-03-01T00:00:00.001Z","other_data":"","new_balance":{"currency":"","amount":"+"},"value":{"currency":"EUR","amount":"-1083.32"}}},"obp_comments":[]},]
 
-    var test_session_visit_count = req.session.test_session_visit_count;
-
-    if (req.user){
-      console.log('req.user.displayName is ' + req.user.displayName);
-    } else {
-      console.log('no user. you might want to login?')
-    }
-
-    if (req.session){
-      console.log('session is ' + util.inspect(req.session));
-    } else {
-      console.log('no session')
-    }
-
-    res.render('test_session.jade', {
-        locals: {
-            title: 'Test Session',
-            test_session_visit_count: test_session_visit_count,
-        }
-    });
+    res.writeHead(200, {'content-type': 'text/json' });
+    res.write( JSON.stringify(mock_data) );
+    res.end('\n');
+   
 });
 
-
-
-// Redirect the user to Twitter for authentication.  When complete, Twitter
-// will redirect the user back to the application at
-// /auth/twitter/callback
-/*app.get('/auth/twitter', passport.authenticate('twitter'));
-app.get('/auth/facebook', passport.authenticate('facebook'));*/
-
-// Twitter will redirect the user to this URL after approval.  Finish the
-// authentication process by attempting to obtain an access token.  If
-// access was granted, the user will be logged in.  Otherwise,
-// authentication has failed.
-/*app.get('/auth/twitter/callback', 
-    passport.authenticate('twitter', { successRedirect: '/',
-                                     failureRedirect: '/error' }));
-
-app.get('/auth/facebook/callback', 
-    passport.authenticate('facebook', { successRedirect: '/',
-                                     failureRedirect: '/error' }));
-
-*/
+app.get('/about', function(req, res) {
+    res.render('about.jade', { locals: {
+        title: "About"
+        , app_env: app.set('APP_ENV')
+    }
+    });
+});
 
 app.listen(settings.server.port, '127.0.0.1', function() {
 //console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
