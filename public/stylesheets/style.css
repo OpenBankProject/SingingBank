@@ -85,9 +85,9 @@ form input.submit {
   position: absolute;
   top: 10px;
   left: 20px;
-  width: 126px;
+  width: 350px;
   height: 93px;
-  background: transparent url("../images/logo.png") no-repeat 50% 50%;
+  background: transparent url("../images/singing_bank_json.png") no-repeat 50% 50%;
   text-indent: -9999em;
   overflow: hidden;
 }
