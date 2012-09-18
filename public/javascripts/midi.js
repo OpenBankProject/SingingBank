@@ -12,13 +12,47 @@ var painFinishedLoading = false;
 var soundQueue = []
 var queuePosition = 0
 
-function loadMoney() {
-  var request = new XMLHttpRequest();
-  //request.open('GET','/sounds/cash-register-01.wav', true);
-  request.open('GET','/sounds/DaDeMo_Grand_Piano_Fazioli_Major_Chords_Middle_Pitch.mp3', true);
-  //request.open('GET','/sounds/148488__neatonk__piano-loud-a4.wav', true);
-  //request.open('GET','/sounds/24929__acclivity__phoneringing.mp3', true);
 
+
+// not using jquery (yet) so
+// from http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values
+function getParameterByName(name)
+{
+  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+  var regexS = "[\\?&]" + name + "=([^&#]*)";
+  var regex = new RegExp(regexS);
+  var results = regex.exec(window.location.search);
+  if(results == null)
+    return "";
+  else
+    return decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+
+
+function loadMoney(style) {
+  var request = new XMLHttpRequest();
+  var sound_file;
+
+  switch(style){
+  case "1":
+    sound_file = '/sounds/cash-register-01.wav';
+    break;
+  case "2":
+    sound_file = '/sounds/DaDeMo_Grand_Piano_Fazioli_Major_Chords_Middle_Pitch.mp3';
+    break;
+  case "3":
+    sound_file = '/sounds/LS_50019.WAV';
+    break;
+  case "4":
+    sound_file = '/sounds/24929__acclivity__phoneringing.mp3';
+    break;
+  default:
+    sound_file = '/sounds/cash-register-01.wav';
+  }
+
+
+  request.open('GET', sound_file, true);
   request.responseType = 'arraybuffer';
 
   request.onError = function (e){
@@ -42,13 +76,31 @@ function loadMoney() {
 
 } // end loadMoney
 
-function loadPain() {
+function loadPain(style) {
   var request = new XMLHttpRequest();
-  //request.open('GET','/sounds/2319.mp3', true); // OK loud!
 
-  //request.open('GET','/sounds/cash-register-01.wav', true);
-  request.open('GET','/sounds/DaDeMo_Grand_Piano_Fazioli_Minor_Chords_Higher_Pitch.mp3', true); 
-  //
+  var sound_file;
+
+  switch(style){
+  case "1":
+    sound_file = '/sounds/2319.mp3'; //loud!
+    break;
+  case "2":
+    sound_file = '/sounds/DaDeMo_Grand_Piano_Fazioli_Minor_Chords_Higher_Pitch.mp3';
+    break;
+  case "3":
+    sound_file = '/sounds/LS_50006.WAV';
+    break;
+  case "4":
+    sound_file = '/sounds/46415__jobro__dramatic-piano-2.wav';
+    break;
+  default:
+    sound_file = '/sounds/2319.mp3';
+  }
+
+
+  request.open('GET', sound_file, true);
+
   request.responseType = 'arraybuffer';
 
   request.onError = function (e){
@@ -94,8 +146,16 @@ function tryPlayNextSoundInQueue(){
     }
 }
 
-loadMoney()
-loadPain()
+var style = getParameterByName("style")
+if (style === ""){
+  console.log("setting style to 1")
+  style = "1"
+} else {
+  console.log("using style:" + style)
+}
+
+loadMoney(style)
+loadPain(style)
 var source1 = null, source2 = null
 
 function playMoney(length){
