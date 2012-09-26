@@ -105,12 +105,11 @@ app.get('/', function(req, res){
         // console.log('here is the body:')
         // console.log(body)
 
-        console.log('here is the body.obp_transaction:')
-        console.log(body['obp_transaction'])
-
         var transactions;
         transactions = JSON.parse(body);
 
+        //console.log('here is the obp_transaction:')
+        //console.log(transactions)
 
         res.render('index.jade', {
             locals: {

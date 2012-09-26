@@ -1,6 +1,6 @@
 /*
-*   midi.js - Play different sounds for negative or positive numbers
-    (provides playData method to outside)
+*   samples.js - Play different sounds for negative or positive numbers
+    (provides addData and startPlaying methods to outside)
 */
 
 var context = new webkitAudioContext();
@@ -11,8 +11,17 @@ var painFinishedLoading = false;
 
 var soundQueue = []
 var queuePosition = 0
+var stop_playing = false
 
-
+$(document).ready(function(){
+    $("#plugin-controls").html("\
+      <p> Variations: &nbsp;\
+        <a href='/?style=1'> 1 (default) &nbsp;</a> \
+        <a href='/?style=2'> 2 &nbsp;</a> \
+        <a href='/?style=3'> 3 &nbsp;</a> \
+        <a href='/?style=4'> 4 &nbsp;</a> \
+      </p>")
+})
 
 // not using jquery (yet) so
 // from http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values
@@ -65,7 +74,6 @@ function loadMoney(style) {
     context.decodeAudioData(request.response, function(buffer) {
       moneyBuffer = buffer;
       moneyFinishedLoading = true;
-      tryPlayNextSoundInQueue()
     }, function(e) {
             console.log(e);
         }
@@ -113,7 +121,6 @@ function loadPain(style) {
     context.decodeAudioData(request.response, function(buffer) {
       painBuffer = buffer;
       painFinishedLoading = true;
-      tryPlayNextSoundInQueue()
     }, function(e) {
             console.log(e);
         }
@@ -123,35 +130,45 @@ function loadPain(style) {
   //alert('money loaded!');
 }
 
-function tryPlayNextSoundInQueue(){
-    if (painFinishedLoading && moneyFinishedLoading && soundQueue.length){
-        var s;
-        if (queuePosition < soundQueue.length){
-            s = soundQueue[queuePosition]
+function startPlaying(){
+    if (stop_playing){
+        stop_playing = false  //so we can start again afterwards
+    } else {
+        if (painFinishedLoading && moneyFinishedLoading && soundQueue.length){
+            var s;
+            if (queuePosition < soundQueue.length){
+                s = soundQueue[queuePosition]
 
-            for (var j=0; j<s.length; j++){
-                if (s[j].type == 'money')
-                    playMoney(s[j].length)
-                else if (s[j].type == 'pain')
-                    playPain(s[j].length)
+                for (var j=0; j<s.length; j++){
+                    if (s[j].type == 'money')
+                        playMoney(s[j].length)
+                    else if (s[j].type == 'pain')
+                        playPain(s[j].length)
+                }
+                queuePosition++
+                //stop sounds after: s[0].length*20 ?
+
+                songLength = 10 * 1000  //in milliseconds
+
+                //play next position after delay
+                setTimeout(startPlaying, songLength / soundQueue.length)
             }
-            queuePosition++
-            //stop sounds after: s[0].length*20 ?
-
-            songLength = 10 * 1000  //in milliseconds
-
-            //play next position after delay
-            setTimeout(tryPlayNextSoundInQueue, songLength / soundQueue.length)
         }
     }
 }
 
+function stopPlaying(){
+    stop_playing = true
+    source1.noteOff(0)
+    source2.noteOff(0)
+}
+
 var style = getParameterByName("style")
 if (style === ""){
-  console.log("setting style to 1")
+  //console.log("setting style to 1")
   style = "1"
 } else {
-  console.log("using style:" + style)
+  //console.log("using style:" + style)
 }
 
 loadMoney(style)
@@ -166,7 +183,7 @@ function playMoney(length){
     source1.buffer = moneyBuffer;               // tell the source which sound to play
     source1.connect(context.destination);       // connect the source to the context's destination (the speakers)
     source1.noteOn(0);                          // play the source now
-    console.log ("length is " + length)
+    //console.log ("length is " + length)
     setTimeout("source1.noteOff(0)", length)
 }
 
@@ -183,7 +200,7 @@ function playPain(length){
 }
 
 
-function playData(number, datetime) {
+function addData(number, datetime) {
     //play some number with the date/time the event happened
     //this should be a generic interface in both directions
     //pushes events into a queue that is played once the samples are loaded
@@ -208,9 +225,5 @@ function playData(number, datetime) {
     else {
         //new event (new position)
         soundQueue.push([event])
-    }
-
-    if (queuePosition == 0){
-        tryPlayNextSoundInQueue()
     }
 }

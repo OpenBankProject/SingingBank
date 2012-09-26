@@ -4,7 +4,7 @@ body {
   height: 100%;
 }
 body {
-  font-family: "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-family: "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", "Helvetica", sans-serif;
   font-weight: 300;
   font-stretch: normal;
   font-size: 13px;
@@ -103,6 +103,10 @@ form input.submit {
   padding: 30px 0;
   text-align: left;
 }
+#main .structure h1 {
+  font-size: 2em;
+  float: left;
+}
 #main .structure h2 {
   font-size: 24px;
   margin: 0 0 20px;
@@ -110,12 +114,16 @@ form input.submit {
 #main .structure .sub h2 {
   font-size: 14px;
 }
-#main .structure ul li {
+#main .structure #list {
+  clear: both;
+}
+#main .structure #list ul li {
   padding: 8px 0 0 44px;
   min-height: 44px;
   line-height: 1.3em;
   font-size: 24px;
   background: url("../images/list_button.png") no-repeat 0 4px;
+  border-radius: 16px;
 }
 #main .structure .sub ul li {
   padding: 4px 0 0 22px;
@@ -135,40 +143,12 @@ form input.submit {
   display: block;
   font-size: 0.6em;
 }
-#created {
-  background: #fff url("../images/created_tick.png") no-repeat 99% 90%;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 20px;
-}
-#created h4 {
-  font-size: 20px;
-  margin: 0 0 20px;
-}
-#created h5 {
-  font-size: 16px;
-}
-#created h5 a {
-  display: block;
-}
-.feel {
-  float: right;
-  margin: 10px 0 0;
-}
-#posted {
-  clear: both;
-  margin: 20px 0 0;
-  border-top: 1px dotted #ccc;
-  padding: 20px 0 0;
-}
-#posted .column {
+#main .structure #plugin-controls {
   float: left;
+  font-size: 1.5em;
 }
-#posted .column.main {
-  width: 70%;
-}
-#posted .column.sub {
-  width: 30%;
+#main .structure #controls {
+  float: left;
 }
 #footer {
   overflow: hidden;
@@ -201,16 +181,4 @@ form input.submit {
   line-height: 40px;
   font-size: 14px;
   color: #fff;
-}
-.angels {
-  color: #09c;
-}
-.angels a {
-  color: #09c !important;
-}
-.demons {
-  color: #ac292b;
-}
-.demons a {
-  color: #ac292b !important;
 }

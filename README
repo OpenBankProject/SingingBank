@@ -57,12 +57,3 @@ OpenBank API Data, Numbers from [-∞, +∞] (json)
 v           v                v
 Midi     Soundfiles   Synth (WebAudio API)
 
------
-
-Sound modules:
-
-dog.js - Plays two different sound samples via webkitAudioContext
-midi.js - tried to use midbridge (java plugin)
-midi2.js - should try to use midi.js (soundfonts played in the browser)
-
-

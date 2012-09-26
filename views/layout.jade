@@ -3,7 +3,25 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src='/javascripts/midi.js')
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js')
+    
+    //- player 'plugins'
+    //- use samples
+    //- script(src='/javascripts/samples.js')
+    
+    //- use midijs
+    script(src='/javascripts/midijs/DOMLoader.XMLHttp.js')
+    script(src='/javascripts/midijs/DOMLoader.script.js')
+    script(src='/javascripts/midijs/lib/base64binary.js')
+    script(src='/javascripts/midijs/Widgets.Loader.js')
+    script(src='/javascripts/midijs/MIDI.Player.js')
+    script(src='/javascripts/midijs/MIDI.Plugin.js')
+    script(src='/javascripts/midijs/MIDI.audioDetect.js')
+    script(src='/javascripts/midijs/MIDI.loadPlugin.js')
+    script(src='/javascripts/midijs.js') 
+    script(src='/javascripts/jquery.color.min.js') 
+
+    //- script(src='/javascripts/sing.js')
 
     script(type='text/javascript')
       var context;
