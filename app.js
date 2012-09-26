@@ -19,7 +19,7 @@ app.configure(function(){
 
   app.use(express.session({secret: "yap8u7yhgytyab"
                           , cookie: { domain:'.' + settings.server.public_domain}
-                          })); // should be before passport session
+                          })); 
 
   app.use(express.methodOverride());
   app.use(require('stylus').middleware({ src: __dirname + '/public' }));
@@ -27,35 +27,21 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));
 });
 
-app.configure('simon', function(){
-  app.use(express.errorHandler({showStack: true, dumpExceptions: true}));
-
-  app.set('APP_ENV', 'simon');
-
-  // Note: Also see settings.js
-});
-
 
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-
   app.set('APP_ENV', 'development');
+});
 
- // Note: Also see settings.js
-
+app.configure('staging', function(){
+  app.use(express.errorHandler({showStack: true, dumpExceptions: true}));
+  app.set('APP_ENV', 'staging');
 });
 
 app.configure('production', function(){
   app.use(express.errorHandler());
-
-
   app.set('APP_ENV', 'production');
-
-  // Note: Also see settings.js
-
 });
-
-
 
 app.get('/logout', function(req, res){
   req.logOut();
@@ -78,7 +64,6 @@ function dir(object)
 
 
 
-
 // Routes
 
 app.get('/', function(req, res){
@@ -91,7 +76,7 @@ app.get('/', function(req, res){
       console.log('Using mock API')
       var uri = 'http://localhost:3000/mock/obp';
     } else {
-      console.log('Using OBP demo tesobe')
+      //console.log('Using OBP demo tesobe')
       var uri = 'https://demo.openbankproject.com/api/accounts/tesobe/anonymous';
     }
 
@@ -108,9 +93,6 @@ app.get('/', function(req, res){
         var transactions;
         transactions = JSON.parse(body);
 
-        //console.log('here is the obp_transaction:')
-        //console.log(transactions)
-
         res.render('index.jade', {
             locals: {
                 title: 'The Singing Bank!',
@@ -120,8 +102,6 @@ app.get('/', function(req, res){
 
     })
 
-
-    
 });
 
 
