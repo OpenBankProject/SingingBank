@@ -67,9 +67,6 @@ function dir(object)
 // Routes
 
 app.get('/', function(req, res){
-
-    //console.log('public_address is ' + settings.server.public_address);
-
     var mock = req.param('mock', false);
 
     if (mock){
