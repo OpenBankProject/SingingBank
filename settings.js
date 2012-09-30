@@ -9,12 +9,12 @@ if (process.env.NODE_ENV == 'development'){
   settings.server.public_domain = 'localhost';
 
 } else if (process.env.NODE_ENV == 'staging') {
-  settings.server.port = 3002;
+  settings.server.port = 3005;
   settings.server.public_address =  'dev.singingbank.com';
   settings.server.public_domain =  'dev.singingbank.com';
 
 } else if (process.env.NODE_ENV == 'production'){
-  settings.server.port = 3002;
+  settings.server.port = 3006;
   settings.server.public_address =  'singingbank.com';
   settings.server.public_domain =  'singingbank.com';
 } else {
