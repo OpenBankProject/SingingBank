@@ -84,7 +84,7 @@ app.get('/', function(req, res){
     }
 
     // Key for the cache is the uri plus a string for development
-    var key = uri + "04";
+    var key = uri + "05";
     var transactions;
 
     client.get(key, function (err, data) {
@@ -98,8 +98,9 @@ app.get('/', function(req, res){
 
               res.render('index.jade', {
               locals: {
-                title: 'The Singing Bank! (cached data)',
+                title: 'The Singing Bank!',
                 transactions: transactions,
+                cached: true,
                 }
               })
 
@@ -127,6 +128,7 @@ app.get('/', function(req, res){
               locals: {
                 title: 'The Singing Bank!',
                 transactions: transactions,
+                cached: false,
                 }
               })
           }) // End API request
