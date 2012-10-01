@@ -73,7 +73,6 @@ app.get('/', function(req, res){
     var redis = require("redis"),
     client = redis.createClient(null, settings.redis.host);
 
-    
     var timeout = 5 * 60 * 60; //  5 hours
 
     if (mock){
@@ -84,30 +83,56 @@ app.get('/', function(req, res){
       var uri = 'https://demo.openbankproject.com/api/accounts/tesobe/anonymous';
     }
 
-    var key = uri;
-    var request = require('request');
-    request({uri: uri, body: 'json'}, function (error, response, body) {
-      //if (!error && response.statusCode == 200) {
-        // console.log('here is the error:')
-        // console.log(error) 
-        // console.log('here is the response:')
-        // console.log(response) 
-        // console.log('here is the body:')
-        // console.log(body)
+    // Key for the cache is the uri plus a string for development
+    var key = uri + "04";
+    var transactions;
 
-        var transactions;
-        transactions = JSON.parse(body);
+    client.get(key, function (err, data) {
 
-        res.render('index.jade', {
-            locals: {
+        if (data){
+          console.log("yes we found data for the key: " + key);
+          // concole.log("data is " + data.toString()); 
+
+          // We store string in the cache, the template wants json objects
+          transactions = JSON.parse(data);
+
+              res.render('index.jade', {
+              locals: {
+                title: 'The Singing Bank! (cached data)',
+                transactions: transactions,
+                }
+              })
+
+        } else {
+          console.log("key not found - will get data from API");
+
+          var request = require('request');
+          request({uri: uri, body: 'json'}, function (error, response, body) {
+            //if (!error && response.statusCode == 200) {
+              // console.log('here is the error:')
+              // console.log(error) 
+              // console.log('here is the response:')
+              // console.log(response) 
+              // console.log('here is the body:')
+              // console.log(body)
+
+              // Store the raw string json response
+              client.set(key, body);
+              client.expire(key, timeout); 
+              
+              // Create JSON objects for Jade
+              transactions = JSON.parse(body);
+
+              res.render('index.jade', {
+              locals: {
                 title: 'The Singing Bank!',
                 transactions: transactions,
-            }
-        })
-
-    })
-
-});
+                }
+              })
+          }) // End API request
+        } // End not in cache test
+  }); // End cache get
+}); // End GET
 
 
 ///////
