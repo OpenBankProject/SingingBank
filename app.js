@@ -89,6 +89,10 @@ app.get('/', function(req, res){
 
     client.get(key, function (err, data) {
 
+        if (err){
+          console.log("We got an error trying to get cache " + err);
+        }
+        
         if (data){
           console.log("yes we found data for the key: " + key);
           // concole.log("data is " + data.toString()); 
