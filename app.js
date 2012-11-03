@@ -31,9 +31,10 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.cookieParser());
 
-  app.use(express.session({secret: "yap8u7yhgytyab"
-                          , cookie: { domain:'.' + settings.server.public_domain}
-                          })); 
+  // Don't need sessions at the moment.
+  // app.use(express.session({secret: "yap8u7yhgytyab"
+  //                         , cookie: { domain:'.' + settings.server.public_domain}
+  //                         })); 
 
   app.use(express.methodOverride());
   app.use(require('stylus').middleware({ src: __dirname + '/public' }));
