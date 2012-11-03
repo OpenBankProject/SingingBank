@@ -127,7 +127,7 @@ app.get('/', function(req, res){
               })
 
         } else {
-          console.log("key not found - will get data from API");
+          logger.debug("key not found - will get data from API");
 
           var request = require('request');
           request({uri: uri, body: 'json'}, function (error, response, body) {
