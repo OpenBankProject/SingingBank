@@ -9,5 +9,6 @@
         , "stylus": "*"
         , "redis": "*"
         , "node-redis": "*"
+        , "winston": "*"
     }
 }

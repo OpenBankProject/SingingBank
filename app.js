@@ -4,11 +4,25 @@
 
 var settings = require('./settings');
 var express = require('express');
-
 var util = require('util');
 
 var app = module.exports = express.createServer();
 
+var redis = require("redis");
+
+var winston = require('winston');
+
+// start.sh grabs console output to file anyway.
+  // transports: [
+  //   new (winston.transports.Console)(),
+  //   new (winston.transports.File)({ filename: settings.logfile })
+  // ]
+
+var logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)()
+  ]
+});
 
 // Configuration
 app.configure(function(){
@@ -67,11 +81,15 @@ function dir(object)
 // Routes
 
 app.get('/', function(req, res){
+
     var mock = req.param('mock', false);
 
 
-    var redis = require("redis"),
-    client = redis.createClient(null, settings.redis.host);
+
+
+    logger.debug("Before create redis client");
+
+    var client = redis.createClient(null, settings.redis.host);
 
     var timeout = 5 * 60 * 60; //  5 hours
 
@@ -90,11 +108,11 @@ app.get('/', function(req, res){
     client.get(key, function (err, data) {
 
         if (err){
-          console.log("We got an error trying to get cache " + err);
+          logger.error("We got an error trying to get cache " + err);
         }
         
         if (data){
-          console.log("yes we found data for the key: " + key);
+          logger.debug("yes we found data for the key: " + key);
           // concole.log("data is " + data.toString()); 
 
           // We store string in the cache, the template wants json objects
@@ -109,7 +127,7 @@ app.get('/', function(req, res){
               })
 
         } else {
-          console.log("key not found - will get data from API");
+          logger.debug("key not found - will get data from API");
 
           var request = require('request');
           request({uri: uri, body: 'json'}, function (error, response, body) {
