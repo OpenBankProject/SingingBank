@@ -10,7 +10,7 @@ var max_number_seen = 0
 var queuePosition = 0
 var loader = null
 var stop_playing = false
-songLength = 100 * 1000  //30 seconds in milliseconds
+songLength = 10 * 1000  // seconds in milliseconds
 
 $(document).ready(function(){
     // Begin loading indication.
@@ -107,7 +107,12 @@ function startPlaying(){
             if (!soundQueue[0][0].note)
                 create_notes_from_data(soundQueue)
 
-            var s, keep
+            var s, keep, holder_element, holder_colour
+
+            // TODO grab starting font size so can return to it.
+            var base_holder_font_size = 12
+
+
             if (queuePosition < soundQueue.length){
                 s = soundQueue[queuePosition]
                 actual_length = (songLength * s[0].length) / summed_note_lengths
@@ -117,13 +122,36 @@ function startPlaying(){
                     keep = false
                     if (j<s.length-1)
                         keep = true
+                    
+                    console.log('note is:' + s[j].note)
+
                     playNote(s[j].note, s[j].length, s[j].velocity, keep)
+                    
                     
                     $('html,body').animate({
             			scrollTop: $("#"+s[j].element).offset().top-200
                 	}, actual_length)
 
+                    console.log('animate element: ' + dir(s))
+                    console.log('element is: ' + s[j].element)
+                    console.log('number is: ' + s[j].number)
+
+                    holder_id = "other_account_holder_" +s[j].element
+                    holder_font_size = base_holder_font_size + (Math.abs(s[j].number) / 10)
+
+                    if (s[j].number > 0)
+                        holder_colour = "green"
+                    else
+                        holder_colour = "red"
+
                     $("#"+s[j].element).animate({backgroundColor: "#E6DB74"}, "fast").delay(s[j].length).animate({backgroundColor: "transparent"})
+                    $("#"+holder_id).animate({fontSize: holder_font_size}, "slow").delay(s[j].length).animate({fontSize: "12"})
+
+
+                    $("#"+holder_id).animate({color: holder_colour}, "fast").delay(s[j].length).animate({color: "#555"})
+
+                    //$("#"+holder_id).color = "#E6DB74" // holder_colour
+
                 }
                 queuePosition++
                 //stop sounds after: s[0].length*20 ?
