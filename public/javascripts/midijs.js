@@ -10,7 +10,7 @@ var max_number_seen = 0
 var queuePosition = 0
 var loader = null
 var stop_playing = false
-songLength = 10 * 1000  // seconds in milliseconds
+songLength = 100 * 1000  // seconds in milliseconds
 
 $(document).ready(function(){
     // Begin loading indication.
@@ -132,23 +132,27 @@ function startPlaying(){
             			scrollTop: $("#"+s[j].element).offset().top-200
                 	}, actual_length)
 
-                    console.log('animate element: ' + dir(s))
                     console.log('element is: ' + s[j].element)
                     console.log('number is: ' + s[j].number)
 
                     holder_id = "other_account_holder_" +s[j].element
-                    holder_font_size = base_holder_font_size + (Math.abs(s[j].number) / 10)
+                    holder_font_size = base_holder_font_size + (Math.abs(s[j].number) / 30)
 
                     if (s[j].number > 0)
-                        holder_colour = "green"
+                        $("#"+holder_id).addClass("moneyin")
                     else
-                        holder_colour = "red"
+                        $("#"+holder_id).addClass("moneyout")
 
                     $("#"+s[j].element).animate({backgroundColor: "#E6DB74"}, "fast").delay(s[j].length).animate({backgroundColor: "transparent"})
                     $("#"+holder_id).animate({fontSize: holder_font_size}, "slow").delay(s[j].length).animate({fontSize: "12"})
 
+                    // TODO turn on font colour before animating.
+                    //$("#"+holder_id).fontSize = 55
+
 
                     $("#"+holder_id).animate({color: holder_colour}, "fast").delay(s[j].length).animate({color: "#555"})
+
+
 
                     //$("#"+holder_id).color = "#E6DB74" // holder_colour
 

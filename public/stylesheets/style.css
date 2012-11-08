@@ -188,3 +188,9 @@ form input.submit {
   padding: 0 0 0 24px;
   line-height: 20px;
 }
+.moneyin {
+  color: #008000;
+}
+.moneyout {
+  color: #f00;
+}
