@@ -24,6 +24,8 @@
             li(id=trans.obp_transaction.obp_transaction_uuid)
               a(name=trans.obp_transaction.obp_transaction_uuid)
               !{trans.obp_transaction.details.value.amount}
-              script(type='text/javascript')
-                //- Add each transaction to a sound queue. The sound queue will be played once samples are loaded.
-                addData(#{trans.obp_transaction.details.value.amount}, "#{trans.obp_transaction.details.completed}", "#{trans.obp_transaction.obp_transaction_uuid}");
+            div.smalltext(id="other_account_holder_" + trans.obp_transaction.obp_transaction_uuid)
+              !{trans.obp_transaction.other_account.holder.holder}
+            script(type='text/javascript')
+              //- Add each transaction to a sound queue. The sound queue will be played once samples are loaded.
+              addData(#{trans.obp_transaction.details.value.amount}, "#{trans.obp_transaction.details.completed}", "#{trans.obp_transaction.obp_transaction_uuid}");

@@ -3,7 +3,10 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js')
+    //script(src='//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js')
+
+    script(src='/javascripts/jquery.js')
+
     
     //- player 'plugins'
     //- use samples
@@ -32,7 +35,7 @@ html
           //alert('Web Audio API OK!');
         }
         catch(e) {
-          alert('Web Audio API is not supported in this browser');
+          alert('Please use the Chrome web browser for this demo. The Web Audio API is not supported in this browser');
         }
       }
 
@@ -48,3 +51,5 @@ html
         a(href="http://demo.openbankproject.com") Demo
         |&nbsp;|&nbsp;
         a(href="http://polarize.it/polarize/thesingingbank_98031475185") Feedback
+        |&nbsp;|&nbsp;
+        a(href="https://github.com/OpenBankProject/SingingBank") Source Code
