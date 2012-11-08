@@ -9,7 +9,11 @@
 
       #create 
       
-      h1 Singing transactions!&nbsp;
+      h1 Singing transactions!&nbsp; 
+      if (cached)
+        p (cached data )
+      else 
+        p (latest data)
       
       #controls
         input(type="image",src="./images/play_button.png",align="absmiddle",value="play",onclick="startPlaying()")

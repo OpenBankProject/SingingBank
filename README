@@ -57,3 +57,61 @@ OpenBank API Data, Numbers from [-∞, +∞] (json)
 v           v                v
 Midi     Soundfiles   Synth (WebAudio API)
 
+----------------
+
+
+
+1) Linux packages
+
+sudo apt-get install npm
+sudo apt-get install redis-server
+sudo apt-get install mongodb-server
+
+
+2) Node packages
+Note: Edit package.json so dependancies will be installed using:
+
+npm install
+
+2b) Special cases.
+In addition to 2) we need to:
+npm install --mongodb:native
+
+
+
+3) Start mongodb
+
+	Start with 
+		sudo mongod
+
+4) Start redis
+
+	Mac: Start with:
+		sudo redis-server /opt/local/etc/redis.conf
+
+	Ubuntu:
+		sudo redis-server /etc/redis/redis.conf
+
+	Note: We (try to!) store sessions in redis (may be *disabled* for now) which has the advantage that they are not lost due to a node restart
+
+5) Start node
+
+	NODE_ENV=simon node --debug app.js
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+
+To read up about the Node callback style of programming this:
+http://shinetech.com/thoughts/articles/139-asynchronous-code-design-with-nodejs-
+is a nice article.
+
+http://blog.gvm-it.eu/post/22040726249/callback-conventions-in-node-js-how-and-why
+
+
+/////////////////////
+
+Apparently this is the expert way to start a node server:
+See slide 35 here:
+
+http://www.slideshare.net/the_undefined/nodejs-best-practices-10428790
