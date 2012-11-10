@@ -136,7 +136,7 @@ function startPlaying(){
                     console.log('number is: ' + s[j].number)
 
                     holder_id = "other_account_holder_" +s[j].element
-                    holder_font_size = base_holder_font_size + (Math.abs(s[j].number) / 30)
+                    holder_font_size = base_holder_font_size + (Math.abs(s[j].number) / 50)
 
                     if (s[j].number > 0)
                         $("#"+holder_id).addClass("moneyin")
