@@ -6,29 +6,25 @@
 
   #main
     .structure
+      #control-wrapper
 
-      #create 
-      p Select Account
+        #create 
+        p Select Account
 
-      #list
-        ul
-          - each account in accounts
-            li 
-              a(href="./?bank_alias=#{account.bank_alias}&account_alias=#{account.account_alias}&owner_description=#{account.owner_description}") #{account.owner_description}
-
-
-      h1 The singing transactions of #{owner_description}!&nbsp; 
-      if (cached)
-        p (cached data )
-      else 
-        p (latest data)
+        #list
+          ul
+            - each account in accounts
+              li 
+                a(href="./?bank_alias=#{account.bank_alias}&account_alias=#{account.account_alias}&owner_description=#{account.owner_description}") #{account.owner_description}
       
-      #controls
-        input(type="image",src="./images/play_button.png",align="absmiddle",value="play",onclick="startPlaying()")
-        input(type="image",src="./images/stop_button.png",align="absmiddle",value="stop",onclick="stopPlaying()")
+        #controls
+          input(type="image", width="100", src="./images/play_button.png",align="absmiddle",value="play",onclick="startPlaying()")
+          input(type="image", width="100", src="./images/stop_button.png",align="absmiddle",value="stop",onclick="stopPlaying()")
       
       #plugin-controls
         //plugin can put stuff here
+
+      h1 The singing transactions of #{owner_description}!&nbsp; 
 
       #list
         ul

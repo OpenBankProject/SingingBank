@@ -150,6 +150,12 @@ form input.submit {
 #main .structure #controls {
   float: left;
 }
+#main .structure #control-wrapper {
+  position: fixed;
+  left: 50px;
+  top: 154px;
+  width: 330px;
+}
 #footer {
   overflow: hidden;
   position: relative;
