@@ -105,8 +105,8 @@ app.get('/', function(req, res){
 
     var offset = req.param('offset', 0);
     var limit = req.param('offset', 50);
-    var sort_dir = req.param('sort-dir', 'desc');
-
+    var sort_dir = req.param('sort_dir', 'desc');
+    var song_length = req.param('song_length', 30);
 
     logger.debug("Before create redis client");
 
@@ -197,7 +197,8 @@ app.get('/', function(req, res){
                 cached: true,
                 accounts: accounts,
                 account_alias: account_alias,
-                owner_description: owner_description
+                owner_description: owner_description,
+                song_length: song_length
                 }
               })
 
@@ -232,7 +233,8 @@ app.get('/', function(req, res){
                 cached: false,
                 accounts: accounts,
                 account_alias: account_alias,
-                owner_description: owner_description
+                owner_description: owner_description,
+                song_length: song_length
                 }
               })
           }) // End API request
