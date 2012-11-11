@@ -2,21 +2,20 @@
   #header
     .structure
       a#logo(href="/")
-      h1 @OpenBankProject
+      h1 Singing Transactions via the Open Bank Project
 
   #main
     .structure
-      #control-wrapper
+      #left-control-wrapper
 
         #create 
         p Select Account
-
-        #list
+        #sub
           ul
             - each account in accounts
               li 
                 a(href="./?bank_alias=#{account.bank_alias}&account_alias=#{account.account_alias}&owner_description=#{account.owner_description}") #{account.owner_description}
-      
+      #right-control-wrapper
         #controls
           input(type="image", width="100", src="./images/play_button.png",align="absmiddle",value="play",onclick="startPlaying()")
           input(type="image", width="100", src="./images/stop_button.png",align="absmiddle",value="stop",onclick="stopPlaying()")
@@ -24,7 +23,7 @@
       #plugin-controls
         //plugin can put stuff here
 
-      h1 The singing transactions of #{owner_description}!&nbsp; 
+      h1 #{owner_description} 
 
       #list
         ul

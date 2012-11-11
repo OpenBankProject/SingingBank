@@ -150,9 +150,15 @@ form input.submit {
 #main .structure #controls {
   float: left;
 }
-#main .structure #control-wrapper {
+#main .structure #left-control-wrapper {
   position: fixed;
   left: 50px;
+  top: 154px;
+  width: 330px;
+}
+#main .structure #right-control-wrapper {
+  position: fixed;
+  left: 900px;
   top: 154px;
   width: 330px;
 }
