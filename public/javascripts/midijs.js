@@ -145,6 +145,9 @@ function startPlaying(){
                         $("#"+holder_id).addClass("moneyout")
 
                     $("#"+s[j].element).animate({backgroundColor: "#E6DB74"}, "fast").delay(s[j].length).animate({backgroundColor: "transparent"})
+                    if (holder_font_size > 50)
+                        $("#"+holder_id).animate({lineHeight: holder_font_size + 8}, "slow").delay(s[j].length).animate({lineHeight: "8"})
+
                     $("#"+holder_id).animate({fontSize: holder_font_size}, "slow").delay(s[j].length).animate({fontSize: "12"})
 
                     $("#"+holder_id).animate({color: holder_colour}, "fast").delay(s[j].length).animate({color: "#555"})
