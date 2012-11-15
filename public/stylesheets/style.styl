@@ -49,6 +49,9 @@ form
 
 #header
   position: relative
+  width: 100%
+
+
   background: #121212 /* Old browsers */
   background: -moz-linear-gradient(top,  #121212 0%, #333333 98%) /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#121212), color-stop(98%,#333333)) /* Chrome,Safari4+ */
@@ -141,7 +144,17 @@ form
     #controls
       float: left
 
+    #left-control-wrapper
+      position: fixed
+      left: 50px
+      top: 154px
+      width: 330px
 
+    #right-control-wrapper
+      position: fixed
+      left: 900px
+      top: 154px
+      width: 330px
 
 #footer
   overflow: hidden
@@ -168,6 +181,12 @@ form
     color: #ffffff
 
 .smalltext
+  display: inline-block
+  font-size: 12px
+  padding: 0 0 0 24px
+  line-height: 20px
+
+.other_account_text
   display: inline-block
   font-size: 12px
   padding: 0 0 0 24px

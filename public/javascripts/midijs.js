@@ -136,26 +136,21 @@ function startPlaying(){
                     console.log('number is: ' + s[j].number)
 
                     holder_id = "other_account_holder_" +s[j].element
-                    holder_font_size = base_holder_font_size + (Math.abs(s[j].number) / 30)
+                    holder_font_size = base_holder_font_size + (Math.abs(s[j].number) / 50)
 
+                    // Turn on font colour before animating.
                     if (s[j].number > 0)
                         $("#"+holder_id).addClass("moneyin")
                     else
                         $("#"+holder_id).addClass("moneyout")
 
                     $("#"+s[j].element).animate({backgroundColor: "#E6DB74"}, "fast").delay(s[j].length).animate({backgroundColor: "transparent"})
+                    if (holder_font_size > 50)
+                        $("#"+holder_id).animate({lineHeight: holder_font_size + 8}, "slow").delay(s[j].length).animate({lineHeight: "8"})
+
                     $("#"+holder_id).animate({fontSize: holder_font_size}, "slow").delay(s[j].length).animate({fontSize: "12"})
 
-                    // TODO turn on font colour before animating.
-                    //$("#"+holder_id).fontSize = 55
-
-
                     $("#"+holder_id).animate({color: holder_colour}, "fast").delay(s[j].length).animate({color: "#555"})
-
-
-
-                    //$("#"+holder_id).color = "#E6DB74" // holder_colour
-
                 }
                 queuePosition++
                 //stop sounds after: s[0].length*20 ?

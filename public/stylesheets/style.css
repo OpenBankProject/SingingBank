@@ -51,6 +51,7 @@ form input.submit {
 }
 #header {
   position: relative;
+  width: 100%;
   background: #121212;
 /* Old browsers */
   background: -moz-linear-gradient(top, #121212 0%, #333 98%);
@@ -150,6 +151,18 @@ form input.submit {
 #main .structure #controls {
   float: left;
 }
+#main .structure #left-control-wrapper {
+  position: fixed;
+  left: 50px;
+  top: 154px;
+  width: 330px;
+}
+#main .structure #right-control-wrapper {
+  position: fixed;
+  left: 900px;
+  top: 154px;
+  width: 330px;
+}
 #footer {
   overflow: hidden;
   position: relative;
@@ -183,6 +196,12 @@ form input.submit {
   color: #fff;
 }
 .smalltext {
+  display: inline-block;
+  font-size: 12px;
+  padding: 0 0 0 24px;
+  line-height: 20px;
+}
+.other_account_text {
   display: inline-block;
   font-size: 12px;
   padding: 0 0 0 24px;

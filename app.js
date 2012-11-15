@@ -104,9 +104,9 @@ app.get('/', function(req, res){
     var owner_description = req.param('owner_description', 'TESOBE / Music Pictures Ltd');
 
     var offset = req.param('offset', 0);
-    var limit = req.param('offset', 50);
-    var sort_dir = req.param('sort-dir', 'desc');
-
+    var limit = req.param('limit', 200);
+    var sort_dir = req.param('sort_dir', 'desc');
+    var song_length = req.param('song_length', 30);
 
     logger.debug("Before create redis client");
 
@@ -162,7 +162,7 @@ app.get('/', function(req, res){
     console.log('uri is: ' + uri)
 
     // Key for the cache is the uri plus a string for development
-    var key = uri + "11";
+    var key = uri + "-offset:" + offset + "-limit:" + limit + "12";
     var transactions;
 
 
@@ -175,18 +175,18 @@ app.get('/', function(req, res){
         
         if (data){
           logger.debug("yes we found CACHED data for the key: " + key);
-          console.log("data is " + data.toString()); 
+          //console.log("data is " + data.toString()); 
 
           // We store string in the cache, the template wants json objects
 
           transactions = JSON.parse(data).transactions;
 
 
-          console.log('CACHED transactions are')
-          console.log(transactions)
+          //console.log('CACHED transactions are')
+          //console.log(transactions)
 
           // TEMP untill we have uuid from the API
-          transactions = add_uuid(transactions)
+          //transactions = add_uuid(transactions)
 
           console.log('before render')
 
@@ -197,7 +197,8 @@ app.get('/', function(req, res){
                 cached: true,
                 accounts: accounts,
                 account_alias: account_alias,
-                owner_description: owner_description
+                owner_description: owner_description,
+                song_length: song_length
                 }
               })
 
@@ -205,8 +206,16 @@ app.get('/', function(req, res){
           logger.debug("cache key NOT found - will get data from API");
           logger.debug("uri is: " + uri)
 
+          // See https://github.com/mikeal/request
           var request = require('request');
-          request({uri: uri, body: 'json'}, function (error, response, body) {
+
+          var headers = {
+            'obp_offset': offset,
+            'obp_limit': limit
+          };
+
+
+          request({uri: uri, body: 'json', headers: headers}, function (error, response, body) {
             //if (!error && response.statusCode == 200) {
               // console.log('here is the error:')
               // console.log(error) 
@@ -223,7 +232,7 @@ app.get('/', function(req, res){
               transactions = JSON.parse(body).transactions;
 
               // TEMP until we have uuid in the API
-              transactions = add_uuid(transactions)
+              //transactions = add_uuid(transactions)
 
               res.render('index.jade', {
               locals: {
@@ -232,7 +241,8 @@ app.get('/', function(req, res){
                 cached: false,
                 accounts: accounts,
                 account_alias: account_alias,
-                owner_description: owner_description
+                owner_description: owner_description,
+                song_length: song_length
                 }
               })
           }) // End API request
