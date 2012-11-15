@@ -10,5 +10,9 @@
         , "redis": "*"
         , "node-redis": "*"
         , "winston": "*"
-    }
+    },
+    "engines": {
+    "node": "0.6.16",
+    "npm":  "1.1.x"
+  }
 }
