@@ -3,10 +3,15 @@
  */
 
 var settings = require('./settings');
-var express = require('express');
+//var express = require('express');
 var util = require('util');
 
-var app = module.exports = express.createServer();
+//var app = module.exports = express.createServer();
+
+
+var express = require("express");
+var app = express();
+
 
 var redis = require("redis");
 
@@ -350,5 +355,7 @@ app.get('/about', function(req, res) {
 });
 
 app.listen(settings.server.port, '127.0.0.1', function() {
-  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+  //console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+  console.log("Express server listening in %s mode", app.settings.env);
+
 });
