@@ -5,6 +5,16 @@ settings.server = {};
 settings.redis = {};
 settings.logfile = "singingbank.log";
 
+// heroku config:add NODE_ENV=development
+
+if (process.env.NODE_ENV === undefined){
+  console.log('NODE_ENV not set. Setting it to development.')
+  process.env.NODE_ENV = 'development'
+}
+
+
+
+
 if (process.env.NODE_ENV == 'development'){
   settings.server.port = 3000;
   settings.server.public_address = 'localhost:3000';
