@@ -146,6 +146,7 @@ app.get('/', function(req, res){
 
     var accounts = mock_accounts.accounts
 
+    console.log('accounts is: ' + accounts)
 
 
     if (mock){
@@ -178,7 +179,7 @@ app.get('/', function(req, res){
           logger.error("We got an error trying to get cache " + err);
         }
         
-        if (data){
+        if (false){
           logger.debug("yes we found CACHED data for the key: " + key);
           //console.log("data is " + data.toString()); 
 
@@ -195,8 +196,10 @@ app.get('/', function(req, res){
 
           console.log('before render')
 
+          console.log(accounts)
+          console.log('aft ac ')
+
               res.render('index.jade', {
-              locals: {
                 title: 'The Singing Bank!',
                 transactions: transactions,
                 cached: true,
@@ -204,7 +207,6 @@ app.get('/', function(req, res){
                 account_alias: account_alias,
                 owner_description: owner_description,
                 song_length: song_length
-                }
               })
 
         } else {
@@ -240,7 +242,6 @@ app.get('/', function(req, res){
               //transactions = add_uuid(transactions)
 
               res.render('index.jade', {
-              locals: {
                 title: 'The Singing Bank!',
                 transactions: transactions,
                 cached: false,
@@ -248,8 +249,8 @@ app.get('/', function(req, res){
                 account_alias: account_alias,
                 owner_description: owner_description,
                 song_length: song_length
-                }
-              })
+              }
+              )
           }) // End API request
         } // End not in cache test
   }); // End cache get
