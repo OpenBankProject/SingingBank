@@ -46,6 +46,12 @@ https://github.com/justinlatimer/node-midi (wrapper for RtMidi)
 https://github.com/hanshuebner/midivent (wrapper for PortMidi)
 
 (midi then only works only on the machine node is running on)
+---
+Jade:
+(templates)
+https://github.com/visionmedia/jade#readme
+
+
 
 -------------------
 

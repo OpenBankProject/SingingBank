@@ -1,42 +1,43 @@
 extends layout
 
-#wrap
-  #header
-    .structure
-      a#logo(href="/")
-      h1 The Singing Bank
+block content
+  #wrap
+    #header
+      .structure
+        a#logo(href="/")
+        h1 The Singing Bank
 
-  #main
-    .structure
-      #left-control-wrapper
+    #main
+      .structure
+        #left-control-wrapper
 
-        #create 
-        p Select Account
-        .sub
+          #create 
+          p Select Account
+          .sub
+            ul
+              - each account in accounts
+                .sub
+                  li 
+                    a(href="./?bank_alias=#{account.bank_alias}&account_alias=#{account.account_alias}&owner_description=#{account.owner_description}") #{account.owner_description}
+        #right-control-wrapper
+          #controls
+            input(type="image", width="100", src="./images/play_button.png",align="absmiddle",value="play",onclick="startPlaying()")
+            input(type="image", width="100", src="./images/stop_button.png",align="absmiddle",value="stop",onclick="stopPlaying()")
+        
+        #plugin-controls
+          //plugin can put stuff here
+
+        h1 #{owner_description} 
+
+        #list
           ul
-            - each account in accounts
-              .sub
-                li 
-                  a(href="./?bank_alias=#{account.bank_alias}&account_alias=#{account.account_alias}&owner_description=#{account.owner_description}") #{account.owner_description}
-      #right-control-wrapper
-        #controls
-          input(type="image", width="100", src="./images/play_button.png",align="absmiddle",value="play",onclick="startPlaying()")
-          input(type="image", width="100", src="./images/stop_button.png",align="absmiddle",value="stop",onclick="stopPlaying()")
-      
-      #plugin-controls
-        //plugin can put stuff here
-
-      h1 #{owner_description} 
-
-      #list
-        ul
-          - each trans in transactions
-            li(id=trans.uuid)
-              a(name=trans.uuid)
-              !{trans.details.value.amount}
-            div.other_account_text(id="other_account_holder_" + trans.uuid)
-              !{trans.other_account.holder.name}
-            script(type='text/javascript')
-              //- Add each transaction to a sound queue. The sound queue will be played once samples are loaded.
-              addData(#{trans.details.value.amount}, "#{trans.details.completed}", "#{trans.uuid}");
+            - each trans in transactions
+              li(id=trans.uuid)
+                a(name=trans.uuid)
+                !{trans.details.value.amount}
+              div.other_account_text(id="other_account_holder_" + trans.uuid)
+                !{trans.other_account.holder.name}
+              script(type='text/javascript')
+                //- Add each transaction to a sound queue. The sound queue will be played once samples are loaded.
+                addData(#{trans.details.value.amount}, "#{trans.details.completed}", "#{trans.uuid}");
 
