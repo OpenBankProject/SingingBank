@@ -36,6 +36,9 @@ if (process.env.NODE_ENV == 'development'){
   throw new Error('NODE_ENV not set to something we like. It is set to: ' + process.env.NODE_ENV);
 }
 
+
+settings.redis.host = 'redis://redistogo:49f7c57c1de3c027b948316037103bd6@gar.redistogo.com:9174/';
+
 console.log(process.env.NODE_ENV);
 
 module.exports = settings;
