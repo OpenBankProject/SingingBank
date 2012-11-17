@@ -5,51 +5,53 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     //script(src='//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js')
     
-    script(src='/javascripts/jquery.js')
+    block scripts
+      script(src='/javascripts/jquery.js')
 
-    
-    //- player 'plugins'
-    //- use samples
-    //- script(src='/javascripts/samples.js')
-    
-    //- use midijs
-    script(src='/javascripts/midijs/DOMLoader.XMLHttp.js')
-    script(src='/javascripts/midijs/DOMLoader.script.js')
-    script(src='/javascripts/midijs/lib/base64binary.js')
-    script(src='/javascripts/midijs/Widgets.Loader.js')
-    script(src='/javascripts/midijs/MIDI.Player.js')
-    script(src='/javascripts/midijs/MIDI.Plugin.js')
-    script(src='/javascripts/midijs/MIDI.audioDetect.js')
-    script(src='/javascripts/midijs/MIDI.loadPlugin.js')
-    script(src='/javascripts/jquery.color.min.js') 
-    script(src='/javascripts/midijs.js') 
+      
+      //- player 'plugins'
+      //- use samples
+      //- script(src='/javascripts/samples.js')
+      
+      //- use midijs
+      script(src='/javascripts/midijs/DOMLoader.XMLHttp.js')
+      script(src='/javascripts/midijs/DOMLoader.script.js')
+      script(src='/javascripts/midijs/lib/base64binary.js')
+      script(src='/javascripts/midijs/Widgets.Loader.js')
+      script(src='/javascripts/midijs/MIDI.Player.js')
+      script(src='/javascripts/midijs/MIDI.Plugin.js')
+      script(src='/javascripts/midijs/MIDI.audioDetect.js')
+      script(src='/javascripts/midijs/MIDI.loadPlugin.js')
+      script(src='/javascripts/jquery.color.min.js') 
+      script(src='/javascripts/midijs.js') 
 
-    //- script(src='/javascripts/sing.js')
+      //- script(src='/javascripts/sing.js')
 
-    script(type='text/javascript')
-      var context;
-      window.addEventListener('load', init, false);
-      function init() {
-        try {
-          context = new webkitAudioContext();
-          //alert('Web Audio API OK!');
+      script(type='text/javascript')
+        var context;
+        window.addEventListener('load', init, false);
+        function init() {
+          try {
+            context = new webkitAudioContext();
+            //alert('Web Audio API OK!');
+          }
+          catch(e) {
+            alert('Sorry: Please use the Chrome (or Safari) web browser for this demo! The Web Audio API is not supported in this browser');
+          }
         }
-        catch(e) {
-          alert('Sorry: Please use the Chrome web browser for this demo! The Web Audio API is not supported in this browser');
-        }
-      }
 
-  body!= body
-
-  #footer
-    .inner
-      p
-        a(href="http://tesobe.com") TESOBE
-        |&nbsp;|&nbsp;
-        a(href="http://www.openbankproject.com") Open Bank Project
-        |&nbsp;|&nbsp;
-        a(href="http://demo.openbankproject.com") Demo
-        |&nbsp;|&nbsp;
-        a(href="http://polarize.it/polarize/thesingingbank_98031475185") Feedback
-        |&nbsp;|&nbsp;
-        a(href="https://github.com/OpenBankProject/SingingBank") Source Code
+  body
+    block content
+    block footer
+      #footer
+        .inner
+          p
+            a(href="http://tesobe.com") TESOBE
+            |&nbsp;|&nbsp;
+            a(href="http://www.openbankproject.com") Open Bank Project
+            |&nbsp;|&nbsp;
+            a(href="http://demo.openbankproject.com") Demo
+            |&nbsp;|&nbsp;
+            a(href="http://polarize.it/polarize/thesingingbank_98031475185") Feedback
+            |&nbsp;|&nbsp;
+            a(href="https://github.com/OpenBankProject/SingingBank") Source Code

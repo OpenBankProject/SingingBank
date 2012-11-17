@@ -213,3 +213,9 @@ form input.submit {
 .moneyout {
   color: #f00;
 }
+.cached {
+  color: #008000;
+}
+.notcached {
+  color: #f00;
+}
