@@ -27,18 +27,18 @@ html
 
       //- script(src='/javascripts/sing.js')
 
-      script(type='text/javascript')
-        var context;
-        window.addEventListener('load', init, false);
-        function init() {
-          try {
-            context = new webkitAudioContext();
-            //alert('Web Audio API OK!');
-          }
-          catch(e) {
-            alert('Sorry: Please use the Chrome (or Safari) web browser for this demo! The Web Audio API is not supported in this browser');
-          }
-        }
+      //- script(type='text/javascript')
+      //-   var context;
+      //-   window.addEventListener('load', init, false);
+      //-   function init() {
+      //-     try {
+      //-       context = new webkitAudioContext();
+      //-       //alert('Web Audio API OK!');
+      //-     }
+      //-     catch(e) {
+      //-       alert('Sorry: Please use the Chrome (or Safari) web browser for this demo! The Web Audio API is not supported in this browser');
+      //-     }
+      //-   }
 
   body
     block content

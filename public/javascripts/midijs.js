@@ -10,7 +10,7 @@ var max_number_seen = 0
 var queuePosition = 0
 var loader = null
 var stop_playing = false
-songLength = 20 * 1000  // seconds in milliseconds
+songLength = 60 * 1000  // seconds in milliseconds
 
 $(document).ready(function(){
     // Begin loading indication.
