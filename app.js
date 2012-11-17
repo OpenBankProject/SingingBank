@@ -115,7 +115,7 @@ app.get('/', function(req, res){
 
     logger.debug("Before create redis client");
 
-    var client = redis.createClient(null, settings.redis.host);
+    //var client = redis.createClient(null, settings.redis.host);
 
     var timeout = 5 * 60 * 60; //  5 hours
 
