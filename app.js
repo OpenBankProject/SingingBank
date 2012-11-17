@@ -3,18 +3,12 @@
  */
 
 var settings = require('./settings');
-//var express = require('express');
 var util = require('util');
-
-//var app = module.exports = express.createServer();
-
 
 var express = require("express");
 var app = express();
 
-
 var redis = require("redis");
-
 var winston = require('winston');
 
 // start.sh grabs console output to file anyway.
@@ -158,38 +152,24 @@ app.get('/', function(req, res){
       var prefix = 'https://demo.openbankproject.com/obp/v1.0/'
     }
 
-// host = 'http://localhost:3000/mock/obp';
-//       var host = 'https://demo.openbankproject.com/obp/v1.0/postbank/accounts/tesobe/transactions/anonymous'
-
-
     var uri = prefix + bank_alias + '/accounts/' + account_alias + '/transactions/anonymous'
-
 
     console.log('uri is: ' + uri)
 
     // Key for the cache is the uri plus a string for development
     var key = uri + "-offset:" + offset + "-limit:" + limit + "12";
     var transactions;
-////////////
 
-// Given this Redis conection string: 
-// "redis://myDb:1234c6607579e81ff116374dc0cc4321@abc.redistogo.com:10108/"
-// you can connect to your redistogo instance like so:
-
-
-// settings.redis.host = 'redis://redistogo:49f7c57c1de3c027b948316037103bd6@gar.redistogo.com:9174/';
-
-    var client = redis.createClient(9174, 'gar.redistogo.com');
-    client.auth("49f7c57c1de3c027b948316037103bd6", function(err) {
-      if (err) {
-        throw err;
-      }
-    });
+    var client = redis.createClient(settings.redis.port, settings.redis.host);
+    if (settings.redis.auth){
+      client.auth(settings.redis.auth, function(err) {
+        if (err) {
+          throw err;
+        }
+      });
+    }
     client.on('ready', function () { // without this part, redis connection will fail
       // do stuff with your redis
-    
-
-
 
     client.get(key, function (err, data) {
 
@@ -197,7 +177,7 @@ app.get('/', function(req, res){
           logger.error("We got an error trying to get cache " + err);
         }
         
-        if (false){
+        if (data){
           logger.debug("yes we found CACHED data for the key: " + key);
           //console.log("data is " + data.toString()); 
 
@@ -205,17 +185,10 @@ app.get('/', function(req, res){
 
           transactions = JSON.parse(data).transactions;
 
-
           //console.log('CACHED transactions are')
           //console.log(transactions)
 
-          // TEMP untill we have uuid from the API
-          //transactions = add_uuid(transactions)
-
           console.log('before render')
-
-          console.log(accounts)
-          console.log('aft ac ')
 
               res.render('index.jade', {
                 title: 'The Singing Bank!',
@@ -239,7 +212,6 @@ app.get('/', function(req, res){
             'obp_limit': limit
           };
 
-
           request({uri: uri, body: 'json', headers: headers}, function (error, response, body) {
             //if (!error && response.statusCode == 200) {
               // console.log('here is the error:')
@@ -255,9 +227,6 @@ app.get('/', function(req, res){
               
               // Create JSON objects for Jade
               transactions = JSON.parse(body).transactions;
-
-              // TEMP until we have uuid in the API
-              //transactions = add_uuid(transactions)
 
               res.render('index.jade', {
                 title: 'The Singing Bank!',
