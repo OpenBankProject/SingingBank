@@ -170,6 +170,24 @@ app.get('/', function(req, res){
     // Key for the cache is the uri plus a string for development
     var key = uri + "-offset:" + offset + "-limit:" + limit + "12";
     var transactions;
+////////////
+
+// Given this Redis conection string: 
+// "redis://myDb:1234c6607579e81ff116374dc0cc4321@abc.redistogo.com:10108/"
+// you can connect to your redistogo instance like so:
+
+
+// settings.redis.host = 'redis://redistogo:49f7c57c1de3c027b948316037103bd6@gar.redistogo.com:9174/';
+
+    var client = redis.createClient(9174, 'gar.redistogo.com');
+    client.auth("49f7c57c1de3c027b948316037103bd6", function(err) {
+      if (err) {
+        throw err;
+      }
+    });
+    client.on('ready', function () { // without this part, redis connection will fail
+      // do stuff with your redis
+    
 
 
 
@@ -254,6 +272,10 @@ app.get('/', function(req, res){
           }) // End API request
         } // End not in cache test
   }); // End cache get
+
+
+    }); // end of redis client.on
+
 }); // End GET
 
 
