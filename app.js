@@ -183,6 +183,8 @@ app.get('/', function(req, res){
 
           // We store string in the cache, the template wants json objects
 
+
+          logger.debug("before parse data: " + data);
           transactions = JSON.parse(data).transactions;
 
           //console.log('CACHED transactions are')
