@@ -222,11 +222,15 @@ app.get('/', function(req, res){
               // console.log(body)
 
               // Store the raw string json response
+              logger.debug("before set key: " + key);
               client.set(key, body);
+              logger.debug("before expire: " + key);
               client.expire(key, timeout); 
               
+              logger.debug("before parse transactions");
               // Create JSON objects for Jade
               transactions = JSON.parse(body).transactions;
+              logger.debug("before render");
 
               res.render('index.jade', {
                 title: 'The Singing Bank!',
