@@ -154,12 +154,14 @@ app.get('/', function(req, res){
 
     var uri = prefix + bank_alias + '/accounts/' + account_alias + '/transactions/anonymous'
 
-    console.log('uri is: ' + uri)
+    console.log('uri to get is: ' + uri);
 
     // Key for the cache is the uri plus a string for development
-    var key = uri + "-offset:" + offset + "-limit:" + limit + "12";
+    var cache_key_prefix = '02'; // incase we want to bump the cache
+    var key = cache_key_prefix + "-" + uri + "-offset:" + offset + "-limit:" + limit + "12";
     var transactions;
 
+    console.log('create redis client port: ' + settings.redis.port + ' host: ' + settings.redis.host);
     var client = redis.createClient(settings.redis.port, settings.redis.host);
     if (settings.redis.auth){
       client.auth(settings.redis.auth, function(err) {
@@ -171,19 +173,25 @@ app.get('/', function(req, res){
     client.on('ready', function () { // without this part, redis connection will fail
       // do stuff with your redis
 
-    client.get(key, function (err, data) {
+    console.log('check redis cache for key: ' + key);
+    client.get(key, function (err, transactions_string) {
 
         if (err){
           logger.error("We got an error trying to get cache " + err);
         }
         
-        if (data){
-          logger.debug("yes we found CACHED data for the key: " + key);
+        if (transactions_string){
+          logger.debug("yes we found CACHED transactions_string");
+
+          //logger.debug("yes we found CACHED transactions_string: " + transactions_string);
           //console.log("data is " + data.toString()); 
 
           // We store string in the cache, the template wants json objects
 
-          transactions = JSON.parse(data).transactions;
+
+          logger.debug("before parse transactions_string");
+          var transactions = JSON.parse(transactions_string);
+
 
           //console.log('CACHED transactions are')
           //console.log(transactions)
@@ -221,12 +229,30 @@ app.get('/', function(req, res){
               // console.log('here is the body:')
               // console.log(body)
 
+
+              
+
+              logger.debug("before parse transactions");
+              // Create JSON objects for Jade
+              // (This checks its JSON before we cache it.)
+              transactions = JSON.parse(body).transactions;
+
+              // TODO - If the API server returns an error
+              // (returns HTML error) we should not cache
+
               // Store the raw string json response
-              client.set(key, body);
+              var transactions_string = JSON.stringify(transactions);
+
+              
+              logger.debug("before set key: " + key);
+              //logger.debug("before set transactions_string: " + transactions_string);
+
+              client.set(key, transactions_string);
+              logger.debug("before expire: " + key);
               client.expire(key, timeout); 
               
-              // Create JSON objects for Jade
-              transactions = JSON.parse(body).transactions;
+
+              logger.debug("before render");
 
               res.render('index.jade', {
                 title: 'The Singing Bank!',
