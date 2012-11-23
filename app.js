@@ -123,18 +123,18 @@ app.get('/', function(req, res){
             "owner_description": "TESOBE / Music Pictures Ltd",
             "bank_alias": "postbank"
         },
-        // {
-        //     "number": "12345",
-        //     "account_alias": "fairnopoly",
-        //     "owner_description": "Fairnopoly",
-        //     "bank_alias": "gls"
-        // },
-        // {
-        //     "number": "4300-1-50180-8",
-        //     "account_alias": "hackerbus",
-        //     "owner_description": "Hacker Bus",
-        //     "bank_alias": "banco-do-brasil"
-        // },
+        {
+            "number": "12345",
+            "account_alias": "fairnopoly",
+            "owner_description": "Fairnopoly",
+            "bank_alias": "gls"
+        },
+        {
+            "number": "4300-1-50180-8",
+            "account_alias": "hackerbus",
+            "owner_description": "Hacker Bus",
+            "bank_alias": "banco-do-brasil"
+        },
     ]
 }
 
@@ -154,12 +154,14 @@ app.get('/', function(req, res){
 
     var uri = prefix + bank_alias + '/accounts/' + account_alias + '/transactions/anonymous'
 
-    console.log('uri is: ' + uri)
+    console.log('uri to get is: ' + uri);
 
     // Key for the cache is the uri plus a string for development
-    var key = uri + "-offset:" + offset + "-limit:" + limit + "12";
+    var cache_key_prefix = '01'; // incase we want to bump the cache
+    var key = cache_key_prefix + "-" + uri + "-offset:" + offset + "-limit:" + limit + "12";
     var transactions;
 
+    console.log('create redis client port: ' + settings.redis.port + ' host: ' + settings.redis.host);
     var client = redis.createClient(settings.redis.port, settings.redis.host);
     if (settings.redis.auth){
       client.auth(settings.redis.auth, function(err) {
@@ -171,6 +173,7 @@ app.get('/', function(req, res){
     client.on('ready', function () { // without this part, redis connection will fail
       // do stuff with your redis
 
+    console.log('check redis cache for key: ' + key);
     client.get(key, function (err, data) {
 
         if (err){
@@ -178,13 +181,13 @@ app.get('/', function(req, res){
         }
         
         if (data){
-          logger.debug("yes we found CACHED data for the key: " + key);
+          logger.debug("yes we found CACHED data: " + data);
           //console.log("data is " + data.toString()); 
 
           // We store string in the cache, the template wants json objects
 
 
-          logger.debug("before parse data: " + data);
+          logger.debug("before parse data");
           transactions = JSON.parse(data).transactions;
 
           //console.log('CACHED transactions are')
