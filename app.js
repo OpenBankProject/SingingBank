@@ -225,6 +225,7 @@ app.get('/', function(req, res){
 
               // Store the raw string json response
               logger.debug("before set key: " + key);
+              logger.debug("before set body: " + body);
               client.set(key, body);
               logger.debug("before expire: " + key);
               client.expire(key, timeout); 
