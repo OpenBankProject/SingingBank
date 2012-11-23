@@ -123,18 +123,18 @@ app.get('/', function(req, res){
             "owner_description": "TESOBE / Music Pictures Ltd",
             "bank_alias": "postbank"
         },
-        {
-            "number": "12345",
-            "account_alias": "fairnopoly",
-            "owner_description": "Fairnopoly",
-            "bank_alias": "gls"
-        },
-        {
-            "number": "4300-1-50180-8",
-            "account_alias": "hackerbus",
-            "owner_description": "Hacker Bus",
-            "bank_alias": "banco-do-brasil"
-        },
+        // {
+        //     "number": "12345",
+        //     "account_alias": "fairnopoly",
+        //     "owner_description": "Fairnopoly",
+        //     "bank_alias": "gls"
+        // },
+        // {
+        //     "number": "4300-1-50180-8",
+        //     "account_alias": "hackerbus",
+        //     "owner_description": "Hacker Bus",
+        //     "bank_alias": "banco-do-brasil"
+        // },
     ]
 }
 
