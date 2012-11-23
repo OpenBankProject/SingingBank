@@ -157,7 +157,7 @@ app.get('/', function(req, res){
     console.log('uri to get is: ' + uri);
 
     // Key for the cache is the uri plus a string for development
-    var cache_key_prefix = '01'; // incase we want to bump the cache
+    var cache_key_prefix = '02'; // incase we want to bump the cache
     var key = cache_key_prefix + "-" + uri + "-offset:" + offset + "-limit:" + limit + "12";
     var transactions;
 
@@ -174,21 +174,24 @@ app.get('/', function(req, res){
       // do stuff with your redis
 
     console.log('check redis cache for key: ' + key);
-    client.get(key, function (err, data) {
+    client.get(key, function (err, transactions_string) {
 
         if (err){
           logger.error("We got an error trying to get cache " + err);
         }
         
-        if (data){
-          logger.debug("yes we found CACHED data: " + data);
+        if (transactions_string){
+          logger.debug("yes we found CACHED transactions_string");
+
+          //logger.debug("yes we found CACHED transactions_string: " + transactions_string);
           //console.log("data is " + data.toString()); 
 
           // We store string in the cache, the template wants json objects
 
 
-          logger.debug("before parse data");
-          transactions = JSON.parse(data).transactions;
+          logger.debug("before parse transactions_string");
+          var transactions = JSON.parse(transactions_string);
+
 
           //console.log('CACHED transactions are')
           //console.log(transactions)
@@ -226,16 +229,29 @@ app.get('/', function(req, res){
               // console.log('here is the body:')
               // console.log(body)
 
+
+              
+
+              logger.debug("before parse transactions");
+              // Create JSON objects for Jade
+              // (This checks its JSON before we cache it.)
+              transactions = JSON.parse(body).transactions;
+
+              // TODO - If the API server returns an error
+              // (returns HTML error) we should not cache
+
               // Store the raw string json response
+              var transactions_string = JSON.stringify(transactions);
+
+              
               logger.debug("before set key: " + key);
-              logger.debug("before set body: " + body);
-              client.set(key, body);
+              //logger.debug("before set transactions_string: " + transactions_string);
+
+              client.set(key, transactions_string);
               logger.debug("before expire: " + key);
               client.expire(key, timeout); 
               
-              logger.debug("before parse transactions");
-              // Create JSON objects for Jade
-              transactions = JSON.parse(body).transactions;
+
               logger.debug("before render");
 
               res.render('index.jade', {
