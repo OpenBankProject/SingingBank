@@ -88,7 +88,7 @@ function create_notes_from_data(data){
                 d[j].velocity = 60
             }
             
-            console.log("Converted "+ MIDI.noteToKey[d[j].note])
+            //console.log("Converted "+ MIDI.noteToKey[d[j].note])
 
             d[j].note = put_in_minor_scale(24,parseInt(d[j].note)) //24 is lowest c
             console.log("to "+ MIDI.noteToKey[d[j].note])
@@ -123,7 +123,7 @@ function startPlaying(){
                     if (j<s.length-1)
                         keep = true
                     
-                    console.log('note is:' + s[j].note)
+                    //console.log('note is:' + s[j].note)
 
                     playNote(s[j].note, s[j].length, s[j].velocity, keep)
                     
@@ -132,11 +132,11 @@ function startPlaying(){
             			scrollTop: $("#"+s[j].element).offset().top-200
                 	}, actual_length)
 
-                    console.log('element is: ' + s[j].element)
-                    console.log('number is: ' + s[j].number)
+                    //console.log('element is: ' + s[j].element)
+                    //console.log('number is: ' + s[j].number)
 
                     holder_id = "other_account_holder_" +s[j].element
-                    holder_font_size = base_holder_font_size + (Math.abs(s[j].number) / 50)
+                    holder_font_size = base_holder_font_size + (Math.log(Math.abs(s[j].number)) / Math.LN2)*2
 
                     // Turn on font colour before animating.
                     if (s[j].number > 0)
@@ -148,9 +148,15 @@ function startPlaying(){
                     //if (holder_font_size > 50)
                     //    $("#"+holder_id).animate({lineHeight: holder_font_size + 8}, "slow").delay(s[j].length).animate({lineHeight: "8"})
 
-                    $("#"+holder_id).animate({fontSize: holder_font_size}, "slow").delay(s[j].length).animate({fontSize: "12"})
+                    $("#"+holder_id)
+                        .animate({fontSize: holder_font_size}, "slow")
+                        .delay(s[j].length)
+                        .animate({fontSize: "12"})
 
-                    $("#"+holder_id).animate({color: holder_colour}, "fast").delay(s[j].length).animate({color: "#555"})
+                    $("#"+holder_id)
+                        .animate({color: holder_colour}, "fast")
+                        .delay(s[j].length)
+                        .animate({color: "#555"})
                 }
                 queuePosition++
                 //stop sounds after: s[0].length*20 ?

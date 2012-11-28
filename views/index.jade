@@ -21,8 +21,8 @@ block content
                     a(href="./?bank_alias=#{account.bank_alias}&account_alias=#{account.account_alias}&owner_description=#{account.owner_description}") #{account.owner_description}
         #right-control-wrapper
           #controls
-            input(type="image", width="100", src="./images/play_button.png",align="absmiddle",value="play",onclick="startPlaying()")
-            input(type="image", width="100", src="./images/stop_button.png",align="absmiddle",value="stop",onclick="stopPlaying()")
+            input(type="image", width="100", src="./images/play_button_large.png",align="absmiddle",value="play",onclick="startPlaying()")
+            input(type="image", width="100", src="./images/stop_button_large.png",align="absmiddle",value="stop",onclick="stopPlaying()")
         
         #plugin-controls
           //plugin can put stuff here
@@ -34,6 +34,13 @@ block content
             - each trans in transactions
               li(id=trans.uuid)
                 a(name=trans.uuid)
+                if trans.details.value.currency == 'EUR'
+                    &euro;&nbsp;
+                else
+                    //trans.details.value.currency
+                    //fall back to euros for now
+                    &euro;&nbsp;
+                 
                 !{trans.details.value.amount}
               div.other_account_text(id="other_account_holder_" + trans.uuid)
                 !{trans.other_account.holder.name}
