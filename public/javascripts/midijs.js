@@ -10,6 +10,7 @@ var max_number_seen = 0
 var queuePosition = 0
 var loader = null
 var stop_playing = false
+var repeat_playing = false
 songLength = 60 * 1000  // seconds in milliseconds
 
 $(document).ready(function(){
@@ -100,8 +101,8 @@ function create_notes_from_data(data){
 }
 
 function startPlaying(){
-    if(stop_playing){
-        stop_playing=false
+    if (repeat_playing && stop_playing) {
+        repeat_playing = false
     } else {
         if (soundQueue.length){
             if (!soundQueue[0][0].note)
@@ -160,7 +161,10 @@ function startPlaying(){
                 }
                 queuePosition++
                 //stop sounds after: s[0].length*20 ?
-
+                
+                //avoids delayed startPlaying()-call cause of setTimeout
+                repeat_playing = true
+                stop_playing = false
                 //play next position after delay
                 setTimeout(startPlaying, actual_length)
             }
