@@ -22,6 +22,6 @@ fi
 
 chown -R $USER:$GROUP $LOG_DIR 
 chown $USER:$GROUP $LOG_FILE 
-cd $PROJECT_FOLDER; NODE_ENV=$NODE_ENV forever --pidFile $PID_FILE start app.js -l $LOG_FILE -e $ERROR_LOG_FILE -a -w
+cd $PROJECT_FOLDER; NODE_ENV=$NODE_ENV forever --pidFile $PID_FILE -a -l $LOG_FILE -e $ERROR_LOG_FILE -w start app.js
 echo -n "PID:`cat $PID_FILE| tr -d \"\n\"`"
 echo
