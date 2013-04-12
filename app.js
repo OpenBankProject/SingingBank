@@ -369,7 +369,7 @@ app.get('/about', function(req, res) {
 
 
 var port = settings.server.port || 3000;
-var host = settings.server.public_host || "0.0.0.0";
+var host = settings.server.listen_host || "0.0.0.0";
 app.listen(port, host, function() {
   //console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
   console.log("Express server listening in %s mode", app.settings.env);

@@ -16,12 +16,14 @@ if (process.env.NODE_ENV == 'development'){
   settings.server.port = 3000;
   settings.server.public_address = 'localhost:3000';
   settings.server.public_domain = 'localhost';
+  settings.server.listen_host = 'localhost';
   settings.redis.host = 'localhost';
   settings.redis.port = 6379;
 } else if (process.env.NODE_ENV == 'staging') {
   settings.server.port = 3005;
   settings.server.public_address =  'dev.singingbank.com';
   settings.server.public_domain =  'dev.singingbank.com';
+  settings.server.listen_host = 'localhost';
   settings.redis.host = 'localhost';
   settings.redis.port = 6379;
   settings.logfile = '/var/log/singingbank.com/dev/singingbank-dev.log';
@@ -29,6 +31,7 @@ if (process.env.NODE_ENV == 'development'){
   settings.server.port = 3006;
   settings.server.public_address =  'singingbank.com';
   settings.server.public_domain =  'singingbank.com';
+  settings.server.listen_host = 'localhost';
   settings.redis.host = 'localhost';
   settings.redis.port = 6379;
   settings.logfile = '/var/log/singingbank.com/live/singingbank-live.log';
