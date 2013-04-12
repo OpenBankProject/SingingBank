@@ -8,7 +8,7 @@ ERROR_LOG_FILE=$LOG_DIR/singingbank-dev-error.log
 USER=www-data
 GROUP=www-data
 
-NODE_ENV=production
+NODE_ENV=staging
 
 PID_FILE=/var/run/nodejs-singingbank-dev.pid
 
