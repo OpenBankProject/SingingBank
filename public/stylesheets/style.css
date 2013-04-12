@@ -115,6 +115,10 @@ form input.submit {
 #main .structure .sub h2 {
   font-size: 14px;
 }
+#main .structure small {
+  display: block;
+  font-size: 0.8em;
+}
 #main .structure #list {
   clear: both;
 }
@@ -139,10 +143,6 @@ form input.submit {
   margin: 10px 0 20px;
   font-size: 24px;
   background: url("../images/create_button.png") no-repeat 0 50%;
-}
-#main .structure #create a small {
-  display: block;
-  font-size: 0.6em;
 }
 #main .structure #plugin-controls {
   float: left;

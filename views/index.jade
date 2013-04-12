@@ -10,8 +10,8 @@ block content
     #main
       .structure
         #left-control-wrapper
+          #create
 
-          #create 
           p Select Account
           .sub
             ul
@@ -19,11 +19,15 @@ block content
                 .sub
                   li 
                     a(href="./?bank_alias=#{account.bank_alias}&account_alias=#{account.account_alias}&owner_description=#{account.owner_description}") #{account.owner_description}
+          br
+          small Using data from the 
+            a(href="http://sofi.openbankproject.com") Open Bank Project Social Finance App
+
         #right-control-wrapper
           #controls
-            input(type="image", width="100", src="./images/play_button_large.png",align="absmiddle",value="play",onclick="startPlaying()")
+            input(type="image", width="100", src="./images/play_button_large.png",align="absmiddle",value="play",onclick="if(!playing){startPlaying()}")
             input(type="image", width="100", src="./images/stop_button_large.png",align="absmiddle",value="stop",onclick="stopPlaying()")
-        
+
         #plugin-controls
           //plugin can put stuff here
 
@@ -40,7 +44,7 @@ block content
                     //trans.details.value.currency
                     //fall back to euros for now
                     &euro;&nbsp;
-                 
+
                 !{trans.details.value.amount}
               div.other_account_text(id="other_account_holder_" + trans.uuid)
                 !{trans.other_account.holder.name}
@@ -51,7 +55,5 @@ block content
 
         - if (cached)
             p.cached 
-              |&middot;
-        - else
-            p.notcached 
-              |&middot;&middot;
+              script(type='text/javascript')
+                console.log("cached transactions")
