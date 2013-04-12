@@ -179,7 +179,7 @@ app.get('/', function(req, res){
         if (err){
           logger.error("We got an error trying to get cache " + err);
         }
-        
+
         if (transactions_string){
           logger.debug("yes we found CACHED transactions_string");
 
@@ -229,9 +229,6 @@ app.get('/', function(req, res){
               // console.log('here is the body:')
               // console.log(body)
 
-
-              
-
               logger.debug("before parse transactions");
               // Create JSON objects for Jade
               // (This checks its JSON before we cache it.)
@@ -243,14 +240,13 @@ app.get('/', function(req, res){
               // Store the raw string json response
               var transactions_string = JSON.stringify(transactions);
 
-              
               logger.debug("before set key: " + key);
               //logger.debug("before set transactions_string: " + transactions_string);
 
               client.set(key, transactions_string);
               logger.debug("before expire: " + key);
               client.expire(key, timeout); 
-              
+
 
               logger.debug("before render");
 

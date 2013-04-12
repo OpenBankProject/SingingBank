@@ -10,8 +10,8 @@ block content
     #main
       .structure
         #left-control-wrapper
+          #create
 
-          #create 
           p Select Account
           .sub
             ul
@@ -19,6 +19,10 @@ block content
                 .sub
                   li 
                     a(href="./?bank_alias=#{account.bank_alias}&account_alias=#{account.account_alias}&owner_description=#{account.owner_description}") #{account.owner_description}
+          br
+          small Using data from the 
+            a(href="http://sofi.openbankproject.com") Open Bank Project Social Finance App
+
         #right-control-wrapper
           #controls
             input(type="image", width="100", src="./images/play_button_large.png",align="absmiddle",value="play",onclick="if(!playing){startPlaying()}")
@@ -51,7 +55,5 @@ block content
 
         - if (cached)
             p.cached 
-              |&middot;
-        - else
-            p.notcached 
-              |&middot;&middot;
+              script(type='text/javascript')
+                console.log("cached transactions")
