@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT_FOLDER=/var/www/singingbank.com/dev/SingingBank/
+PROJECT_FOLDER=/var/www/singingbank.com/dev/SingingBank
 LOG_DIR=/var/log/singingbank.com/dev
 LOG_FILE=$LOG_DIR/singingbank-dev.log
 PID_FILE=/var/run/nodejs-singingbank-dev.pid

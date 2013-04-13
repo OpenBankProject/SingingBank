@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT_FOLDER=/var/www/singingbank.com/live/SingingBank/
+PROJECT_FOLDER=/var/www/singingbank.com/live/SingingBank
 LOG_DIR=/var/log/singingbank.com/live
 LOG_FILE=$LOG_DIR/singingbank-live.log
 ERROR_LOG_FILE=$LOG_DIR/singingbank-live-error.log
