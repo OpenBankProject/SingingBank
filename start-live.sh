@@ -1,6 +1,6 @@
 #!/bin/bash
-PROJECT_FOLDER=/var/www/singingbank.com/live/SingingBank/
 
+PROJECT_FOLDER=/var/www/singingbank.com/live/SingingBank/
 LOG_DIR=/var/log/singingbank.com/live
 LOG_FILE=$LOG_DIR/singingbank-live.log
 ERROR_LOG_FILE=$LOG_DIR/singingbank-live-error.log
@@ -22,6 +22,6 @@ fi
 
 chown -R $USER:$GROUP $LOG_DIR 
 chown $USER:$GROUP $LOG_FILE 
-cd $PROJECT_FOLDER; NODE_ENV=$NODE_ENV /usr/local/bin/forever --pidFile $PID_FILE -a -l $LOG_FILE -e $ERROR_LOG_FILE start app.js
+NODE_ENV=$NODE_ENV /usr/local/bin/forever --pidFile $PID_FILE -a -l $LOG_FILE -e $ERROR_LOG_FILE start $PROJECT_FOLDER/app.js
 echo -n "PID:`cat $PID_FILE| tr -d \"\n\"`"
 echo
