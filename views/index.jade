@@ -24,9 +24,15 @@ block content
           br 
           a(href="http://sofi.openbankproject.com") Open Bank Project Social Finance App
 
+          p
+            div.other_account_text(id="current_note_name")
+
+
         #right-control-wrapper
           #controls
-            input(type="image", width="100", src="./images/play_button_large.png",align="absmiddle",value="play",onclick="if(!playing){startPlaying()}")
+            input(type="image", width="100", src="./images/play_button_large.png",align="absmiddle",value="play",onclick="if(!playing){startPlaying('minor')}")
+            input(type="image", width="100", src="./images/play_button_large.png",align="absmiddle",value="play",onclick="if(!playing){startPlaying('major')}")
+
             input(type="image", width="100", src="./images/stop_button_large.png",align="absmiddle",value="stop",onclick="stopPlaying()")
 
         #plugin-controls

@@ -149,7 +149,8 @@ app.get('/', function(req, res){
     } else {
       //console.log('Using OBP demo tesobe')
       //var uri = 'https://demo.openbankproject.com/api/accounts/tesobe/anonymous';
-      var prefix = 'https://demo.openbankproject.com/obp/v1.0/'
+      //var prefix = 'https://demo.openbankproject.com/obp/v1.0/'
+      var prefix = 'https://api.openbankproject.com/obp/v1.0/'
     }
 
     var uri = prefix + bank_alias + '/accounts/' + account_alias + '/transactions/public'
@@ -228,6 +229,8 @@ app.get('/', function(req, res){
               // console.log(response) 
               // console.log('here is the body:')
               // console.log(body)
+
+              // TODO add error handling (e.g. URL does not exist etc)
 
               logger.debug("before parse transactions");
               // Create JSON objects for Jade
@@ -372,6 +375,6 @@ var port = settings.server.port || 3000;
 var host = settings.server.listen_host || "0.0.0.0";
 app.listen(port, host, function() {
   //console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
-  console.log("Express server listening in %s mode", app.settings.env);
+  console.log("Express server listening in %s mode on %s:%s", app.settings.env, host, port);
 
 });
