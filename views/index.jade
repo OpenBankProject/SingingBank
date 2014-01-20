@@ -31,7 +31,8 @@ block content
         #right-control-wrapper
           #controls
             input(type="image", width="100", src="./images/play_button_large.png",align="absmiddle",value="play",onclick="if(!playing){startPlaying('minor')}")
-            input(type="image", width="100", src="./images/play_button_large.png",align="absmiddle",value="play",onclick="if(!playing){startPlaying('major')}")
+            // Second button to play in Major mode. Works but we need to find better UI
+            //input(type="image", width="100", src="./images/play_button_large.png",align="absmiddle",value="play",onclick="if(!playing){startPlaying('major')}")
 
             input(type="image", width="100", src="./images/stop_button_large.png",align="absmiddle",value="stop",onclick="stopPlaying()")
 
