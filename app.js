@@ -150,10 +150,10 @@ app.get('/', function(req, res){
       //console.log('Using OBP demo tesobe')
       //var uri = 'https://demo.openbankproject.com/api/accounts/tesobe/anonymous';
       //var prefix = 'https://demo.openbankproject.com/obp/v1.0/'
-      var prefix = 'https://api.openbankproject.com/obp/v1.0/'
+      var prefix = 'https://api.openbankproject.com/obp/v1.2.1/'
     }
 
-    var uri = prefix + bank_alias + '/accounts/' + account_alias + '/transactions/public'
+    var uri = prefix + 'banks/' + bank_alias + '/accounts/' + account_alias + 'public/transactions'
 
     console.log('uri to get is: ' + uri);
 
