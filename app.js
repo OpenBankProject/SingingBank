@@ -97,7 +97,7 @@ app.get('/', function(req, res){
 
     var mock = req.param('mock', false);
     var bank_alias = req.param('bank_alias', 'postbank');
-    var account_alias = req.param('account_alias', 'tesobe');
+    var account_alias = req.param('account_alias', 'f9315a52-330a-470c-8146-c51292c68f9d');
 
     // Temp hack this should come from API
     var owner_description = req.param('owner_description', 'TESOBE / Music Pictures Ltd');
