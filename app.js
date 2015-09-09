@@ -119,13 +119,13 @@ app.get('/', function(req, res){
     "accounts": [
         {
             "number": "1234",
-            "account_alias": "tesobe",
+            "account_alias": "f9315a52-330a-470c-8146-c51292c68f9d",
             "owner_description": "TESOBE / Music Pictures Ltd",
             "bank_alias": "postbank"
         },
         {
             "number": "12345",
-            "account_alias": "fairnopoly",
+            "account_alias": "fairnopoly-geschaftskonto",
             "owner_description": "Fairnopoly",
             "bank_alias": "gls"
         },
@@ -153,7 +153,7 @@ app.get('/', function(req, res){
       var prefix = 'https://api.openbankproject.com/obp/v1.2.1/'
     }
 
-    var uri = prefix + 'banks/' + bank_alias + '/accounts/' + account_alias + 'public/transactions'
+    var uri = prefix + 'banks/' + bank_alias + '/accounts/' + account_alias + '/public/transactions'
 
     console.log('uri to get is: ' + uri);
 
