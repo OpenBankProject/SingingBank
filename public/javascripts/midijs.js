@@ -15,20 +15,14 @@ songLength = 60 * 1000  // seconds in milliseconds
 var playing = false
 
 $(document).ready(function(){
-    /*
-    // Begin loading indication
-    loader = new widgets.Loader({
-        message: "loading: Soundfont..."
-    })
-
-    MIDI.loadPlugin(function(){
-        loader.stop()
-    }, "")
-    */
+   // Begin loading indication
+   loader = new widgets.Loader({
+      message: "loading: Soundfont..."
+   })
 
    MIDI.loadPlugin({
     instrument: "acoustic_grand_piano", // or the instrument code 1 (aka the default)
-    onsuccess: function() { }
+    onsuccess: function() { loader.stop() }
    });
 })
 
