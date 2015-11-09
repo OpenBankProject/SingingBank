@@ -13,16 +13,17 @@ html
       //- script(src='/javascripts/samples.js')
 
       //- use midijs
-      script(src='/javascripts/midijs/DOMLoader.XMLHttp.js')
-      script(src='/javascripts/midijs/DOMLoader.script.js')
-      script(src='/javascripts/midijs/lib/base64binary.js')
-      script(src='/javascripts/midijs/Widgets.Loader.js')
-      script(src='/javascripts/midijs/MIDI.Player.js')
-      script(src='/javascripts/midijs/MIDI.Plugin.js')
-      script(src='/javascripts/midijs/MIDI.audioDetect.js')
-      script(src='/javascripts/midijs/MIDI.loadPlugin.js')
-      script(src='/javascripts/jquery.color.min.js') 
-      script(src='/javascripts/midijs.js') 
+      // polyfill
+      script(src="/javascripts/midijs-lib/inc/shim/Base64.js")
+      script(src="/javascripts/midijs-lib/inc/shim/Base64binary.js")
+      script(src="/javascripts/midijs-lib/inc/shim/WebAudioAPI.js")
+      // utils
+      script(src="/javascripts/midijs-lib/js/util/dom_request_xhr.js")
+      script(src="/javascripts/midijs-lib/js/util/dom_request_script.js")
+
+      script(src='/javascripts/MIDI.min.js')
+      script(src='/javascripts/midijs.js')
+      script(src='/javascripts/jquery.color.min.js')
 
       //- script(src='/javascripts/sing.js')
 
@@ -51,6 +52,6 @@ html
             |&nbsp;|&nbsp;
             a(href="http://sofi.openbankproject.com") Open Banking / Social Finance
             |&nbsp;|&nbsp;
-            a(href="http://polarize.it/polarize/singingbankhome_73512949235") Feedback            
+            a(href="http://polarize.it/polarize/singingbankhome_73512949235") Feedback
             |&nbsp;|&nbsp;
             a(href="https://github.com/OpenBankProject/SingingBank") Source Code

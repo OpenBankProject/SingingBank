@@ -204,12 +204,12 @@ function addData(number, datetime) {
     //play some number with the date/time the event happened
     //this should be a generic interface in both directions
     //pushes events into a queue that is played once the samples are loaded
-    
+
     function convert_to_length(datetime){
         d = new Date(datetime)
         return d.getDate()
     }
-    
+
     //queue one sound for money coming in and another for money going out
     var event
     if (number > 0)

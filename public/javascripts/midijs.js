@@ -15,7 +15,8 @@ songLength = 60 * 1000  // seconds in milliseconds
 var playing = false
 
 $(document).ready(function(){
-    // Begin loading indication.
+    /*
+    // Begin loading indication
     loader = new widgets.Loader({
         message: "loading: Soundfont..."
     })
@@ -23,7 +24,12 @@ $(document).ready(function(){
     MIDI.loadPlugin(function(){
         loader.stop()
     }, "")
+    */
 
+   MIDI.loadPlugin({
+    instrument: "acoustic_grand_piano", // or the instrument code 1 (aka the default)
+    onsuccess: function() { }
+   });
 })
 
 function oc(a)
@@ -85,8 +91,8 @@ function create_notes_from_data(data, mode){
 
 
     if (mode == null){
-        console.log("setting to minor")
-        mode = 'minor';
+        console.log("setting to major")
+        mode = 'major';
     }
 
     var d
@@ -154,9 +160,6 @@ function startPlaying(mode){
 
 
                     $("#current_note_name").text(MIDI.noteToKey[s[j].note])
-
-
-
 
                     $('html,body').animate({
                         scrollTop: $("#"+s[j].element).offset().top-200
@@ -239,7 +242,7 @@ function addData(number, datetime, element_id) {
 
     //check if we have had data at the same datetime already, then keep them all in one list
     //we assume that data coming in is in datetime order! (otherwise we would have to search the whole queue)
-    last_queue_element = soundQueue.slice(-1)[0] 
+    last_queue_element = soundQueue.slice(-1)[0]
     if (last_queue_element && last_queue_element.datetime == datetime) {
         //we have two data at the same time, add them into one event
         soundQueue[soundQueue.length-1].push(event)

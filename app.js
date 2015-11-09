@@ -33,7 +33,7 @@ app.configure(function(){
   // Don't need sessions at the moment.
   // app.use(express.session({secret: "yap8u7yhgytyab"
   //                         , cookie: { domain:'.' + settings.server.public_domain}
-  //                         })); 
+  //                         }));
 
   app.use(express.methodOverride());
   app.use(require('stylus').middleware({ src: __dirname + '/public' }));
@@ -80,15 +80,15 @@ function dir(object)
 
 
 function add_uuid(transactions) {
-  // Just until we have the uuid in the API
-        //console.log('length of transactions is ' + transactions.length);
-        for(var i = transactions.length; i--;) {
-          //console.log('i is ' + i);
-          transactions[i].uuid = i;
-          console.log(transactions[i]);
-          //trans.uuid = i;
-        }
-        return transactions; // modified
+    // Just until we have the uuid in the API
+    //console.log('length of transactions is ' + transactions.length);
+    for(var i = transactions.length; i--;) {
+      //console.log('i is ' + i);
+      transactions[i].uuid = i;
+      console.log(transactions[i]);
+      //trans.uuid = i;
+    }
+    return transactions; // modified
 }
 
 // Routes
@@ -126,7 +126,7 @@ app.get('/', function(req, res){
         {
             "number": "12345",
             "account_alias": "fairnopoly-geschaftskonto",
-            "owner_description": "Fairnopoly",
+            "owner_description": "Fairmondo",
             "bank_alias": "gls"
         },
         {
@@ -148,8 +148,6 @@ app.get('/', function(req, res){
       var prefix = 'http://localhost:3000/mock/obp/v1.0/';
     } else {
       //console.log('Using OBP demo tesobe')
-      //var uri = 'https://demo.openbankproject.com/api/accounts/tesobe/anonymous';
-      //var prefix = 'https://demo.openbankproject.com/obp/v1.0/'
       var prefix = 'https://api.openbankproject.com/obp/v1.2.1/'
     }
 
@@ -185,7 +183,7 @@ app.get('/', function(req, res){
           logger.debug("yes we found CACHED transactions_string");
 
           //logger.debug("yes we found CACHED transactions_string: " + transactions_string);
-          //console.log("data is " + data.toString()); 
+          //console.log("data is " + data.toString());
 
           // We store string in the cache, the template wants json objects
 
@@ -224,9 +222,9 @@ app.get('/', function(req, res){
           request({uri: uri, body: 'json', headers: headers}, function (error, response, body) {
             //if (!error && response.statusCode == 200) {
               // console.log('here is the error:')
-              // console.log(error) 
+              // console.log(error)
               // console.log('here is the response:')
-              // console.log(response) 
+              // console.log(response)
               // console.log('here is the body:')
               // console.log(body)
 
@@ -248,7 +246,7 @@ app.get('/', function(req, res){
 
               client.set(key, transactions_string);
               logger.debug("before expire: " + key);
-              client.expire(key, timeout); 
+              client.expire(key, timeout);
 
 
               logger.debug("before render");
@@ -286,13 +284,13 @@ app.get('/test/redis', function(req, res){
     client.get(key, function (err, data) {
 
         if (data){
-          console.log("yes we found data for the key: " + key + ":" + data.toString()); 
+          console.log("yes we found data for the key: " + key + ":" + data.toString());
         } else {
           console.log("key not found");
           mock_data = [{"something":{"somekey":"4f574876876974c0eeead"}}];
           data = JSON.stringify(mock_data);
           client.set(key, data);
-          client.expire(key, timeout); 
+          client.expire(key, timeout);
         }
 
         res.writeHead(200, {'content-type': 'text/json' });
@@ -319,7 +317,7 @@ app.get('/mock/obp/v1.0/postbank/accounts/tesobe/transactions/anonymous', functi
     res.writeHead(200, {'content-type': 'text/json' });
     res.write( JSON.stringify(mock_data) );
     res.end('\n');
-   
+
 });
 
 app.get('/mock/obp/v1.0/postbank/accounts', function(req, res){

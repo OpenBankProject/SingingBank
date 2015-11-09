@@ -4,12 +4,12 @@
     , "private": true
     , "dependencies": {
         "express": "3.0.3"
-        , "jade": "*"
-        , "request": "*" 
-        , "stylus": "*"
-        , "redis": "*"
-        , "node-redis": "*"
-        , "winston": "*"
+        , "jade": "0.27.5"
+        , "request": "2.11.4"
+        , "stylus": "0.29.0"
+        , "redis": "0.8.1"
+        , "node-redis": "0.1.5"
+        , "winston": "0.6.2"
     },
     "engines": {
     "node": "0.6.16",
