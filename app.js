@@ -145,7 +145,7 @@ app.get('/', function(req, res){
 
     if (mock){
       console.log('Using mock API')
-      var prefix = 'http://localhost:3000/mock/obp/v1.0/';
+      var prefix = 'http://localhost:3000/mock/obp/v1.2.1/';
     } else {
       //console.log('Using OBP demo tesobe')
       var prefix = 'https://api.openbankproject.com/obp/v1.2.1/'
@@ -306,7 +306,8 @@ app.get('/test/redis', function(req, res){
 
 ////////
 
-app.get('/mock/obp/v1.0/postbank/accounts/tesobe/transactions/anonymous', function(req, res){
+//TODO, first make the mock work, need to tweak the parameters
+app.get('/mock/obp/v1.2.1/banks/postbank/accounts/f9315a52-330a-470c-8146-c51292c68f9d/public/transactions', function(req, res){
 
     console.log('Mock data: public_address is ' + settings.server.public_address);
 
