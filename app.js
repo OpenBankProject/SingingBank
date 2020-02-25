@@ -151,7 +151,7 @@ app.get('/', function(req, res){
       var prefix = 'https://api.openbankproject.com/obp/v1.2.1/'
     }
 
-    var uri = prefix + 'banks/' + bank_alias + '/accounts/' + account_alias + '/public/transactions'
+    var uri = "https://apisandbox.openbankproject.com/obp/v1.2.1/banks/rbs/accounts/1331775/_view1/transactions"
 
     console.log('uri to get is: ' + uri);
 
