@@ -155,9 +155,9 @@ function startPlaying(mode){
 
                     $("#current_note_name").text(MIDI.noteToKey[s[j].note])
 
-                    // $('html,body').animate({
-                    //     scrollTop: $("#"+s[j].element).offset().top-200
-                    // }, actual_length)
+                    $('html,body').animate({
+                        scrollTop: $("#"+s[j].element).offset().top-200
+                    }, actual_length)
 
                     //console.log('element is: ' + s[j].element)
                     //console.log('number is: ' + s[j].number)
